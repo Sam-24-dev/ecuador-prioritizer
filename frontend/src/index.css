@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 75 12% 95%;
+    --foreground: 138 8% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 138 8% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 138 8% 13%;
+    --primary: 160 24% 21%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 75 12% 95%;
+    --secondary-foreground: 138 8% 13%;
+    --muted: 90 13% 89%;
+    --muted-foreground: 137 6% 34%;
+    --accent: 90 13% 89%;
+    --accent-foreground: 160 24% 21%;
+    --destructive: 5 66% 40%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 95 8% 79%;
+    --input: 95 8% 79%;
+    --ring: 160 24% 21%;
+    --radius: 0.25rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    background: hsl(var(--background));
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    min-width: 320px;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: rgb(41 68 61 / 0.2);
+  }
+
+  button, a, input, textarea, summary {
+    touch-action: manipulation;
+  }
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { @apply bg-border; }
+::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

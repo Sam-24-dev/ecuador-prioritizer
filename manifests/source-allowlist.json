@@ -1,0 +1,2244 @@
+{
+  "$schema": "https://ecuador-prioritizer.local/schemas/source-allowlist-v1.json",
+  "schema_version": 1,
+  "classification_date": "2026-08-23",
+  "status": "PASS",
+  "purpose": "Exhaustive Phase 1 classification only; this file authorizes no copy until Phase 2 begins.",
+  "source_set": [
+    {
+      "role": "public_product",
+      "repository": "Sam-24-dev/ecuador-prioritizer",
+      "visibility": "public",
+      "branch": "main",
+      "commit_sha": "145e8b3adc98bb450289aee8ab058ac265e15372",
+      "tree_sha": "0d071ddfd1000a1bdc6d257c3c42170f1414eacd",
+      "expected_blob_count": 96
+    },
+    {
+      "role": "private_capability",
+      "repository": "Sam-24-dev/ecuador-prioritizer-owner-private",
+      "visibility": "private",
+      "branch": "main",
+      "commit_sha": "9e5d118edee03b9174a598f469a8e2b5c132df76",
+      "tree_sha": "bf9d4bd7702010f03d46ef9fd8f70d8856d0a035",
+      "expected_blob_count": 140
+    }
+  ],
+  "policy": {
+    "allowed_actions": [
+      "COPY",
+      "ADAPT",
+      "MERGE_REFERENCE",
+      "REWRITE_REFERENCE",
+      "PENDING_PHASE_3",
+      "EXCLUDE_DUPLICATE_PUBLIC",
+      "EXCLUDE_LEGACY_EDITORIAL",
+      "EXCLUDE_PERSISTENCE",
+      "EXCLUDE_OPERATIONAL",
+      "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "EXCLUDE_MOCK_PRODUCTION",
+      "EXCLUDE_UNUSED_UI",
+      "EXCLUDE_GENERATED_LOCKFILE",
+      "EXCLUDE_OLD_PACKAGING",
+      "EXCLUDE_REMOTE_ASSET",
+      "EXCLUDE_PRIVATE_DATASET"
+    ],
+    "unknown_allowed": false,
+    "target_conflict_rule": "A repeated non-null target_path is valid only when every conflicting action is MERGE_REFERENCE or REWRITE_REFERENCE.",
+    "duplicate_rule": "A private blob byte-identical to the public blob at the same path is EXCLUDE_DUPLICATE_PUBLIC and is never copied twice.",
+    "secrets_rule": "The validator handles tree metadata only and never prints source blob contents or secret values."
+  },
+  "summary": {
+    "tracked_blob_count": 236,
+    "tracked_blob_count_by_source": {
+      "public_product": 96,
+      "private_capability": 140
+    },
+    "tracked_counts_by_action": {
+      "ADAPT": 14,
+      "COPY": 83,
+      "EXCLUDE_DUPLICATE_PUBLIC": 37,
+      "EXCLUDE_GENERATED_LOCKFILE": 1,
+      "EXCLUDE_LEGACY_EDITORIAL": 11,
+      "EXCLUDE_MOCK_PRODUCTION": 4,
+      "EXCLUDE_OBSOLETE_DOCUMENTATION": 18,
+      "EXCLUDE_OLD_PACKAGING": 4,
+      "EXCLUDE_OPERATIONAL": 10,
+      "EXCLUDE_PERSISTENCE": 10,
+      "EXCLUDE_REMOTE_ASSET": 1,
+      "EXCLUDE_UNUSED_UI": 23,
+      "MERGE_REFERENCE": 7,
+      "PENDING_PHASE_3": 1,
+      "REWRITE_REFERENCE": 12
+    },
+    "external_asset_count": 4,
+    "external_counts_by_action": {
+      "EXCLUDE_PRIVATE_DATASET": 1,
+      "PENDING_PHASE_3": 3
+    }
+  },
+  "entries": [
+    {
+      "source_role": "public_product",
+      "source_path": ".dockerignore",
+      "source_blob_sha": "e299b428f27ee7abcf388f1de340b7f4635cda98",
+      "target_path": null,
+      "action": "EXCLUDE_OPERATIONAL",
+      "reason": "Legacy Docker context policy; Docker will be rewritten after the application boundary is materialized.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": ".gitattributes",
+      "source_blob_sha": "467359ba78d78dc4532eeeb3f73d0adabbf4bbdf",
+      "target_path": ".gitattributes",
+      "action": "COPY",
+      "reason": "Repository text-normalization metadata is source-neutral.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": ".gitignore",
+      "source_blob_sha": "52601b6b79a1c2319390c9a77628a489c61b9af9",
+      "target_path": ".gitignore",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Reference for a new deny-by-default ignore file; merge with the private variant without copying legacy entries.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "CONTRIBUTING.md",
+      "source_blob_sha": "eefbc1e13cf9340bd46158455172c1aa5ef7b1c9",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Contribution guidance predates the approved migration workspace and will be authored against the new repository.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "Dockerfile",
+      "source_blob_sha": "8acc4350efda7dce3a7de753f414eb215a64468d",
+      "target_path": null,
+      "action": "EXCLUDE_OPERATIONAL",
+      "reason": "Old operational Dockerfile; a minimal image recipe will be rewritten after Phase 2.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "LICENSE",
+      "source_blob_sha": "aceed94975d0da6a0b25a8dbfa35d6998db32b6f",
+      "target_path": "LICENSE",
+      "action": "COPY",
+      "reason": "MIT license text for the public project.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "MODEL_ARTIFACTS_NOTICE.md",
+      "source_blob_sha": "b6caa922c8ea24a76c3f794a6ceba41fa7abd2dd",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Superseded by the new publication policy and Phase 3 artifact gate.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "PUBLIC_COMMIT_ALLOWLIST.txt",
+      "source_blob_sha": "32d6545403806398a728805b2299abde8c737787",
+      "target_path": null,
+      "action": "EXCLUDE_OLD_PACKAGING",
+      "reason": "Legacy mock-only package manifest is incomplete and does not describe the approved two-source migration.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "README.md",
+      "source_blob_sha": "ed2a5f4a2bf1bdbd21d3cc6a909684cf59de5165",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Superseded by the new workspace README and migration documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/__init__.py",
+      "source_blob_sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+      "target_path": "backend/app/__init__.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/api/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": "backend/app/api/__init__.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/api/v1/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": "backend/app/api/v1/__init__.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/api/v1/endpoints/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": "backend/app/api/v1/endpoints/__init__.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/api/v1/endpoints/analysis.py",
+      "source_blob_sha": "af5efc11765c758abe65582932e824b2ef3fdc0f",
+      "target_path": "backend/app/api/v1/endpoints/analysis.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/api/v1/endpoints/health.py",
+      "source_blob_sha": "90d12d56c1e3bb825669db84170f2334c5353f3a",
+      "target_path": "backend/app/api/v1/endpoints/health.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/api/v1/router.py",
+      "source_blob_sha": "1f917b7819cf3ac0635759c38c13ed020acfa86b",
+      "target_path": "backend/app/api/v1/router.py",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Rebuild the router from both variants with only health, batch analysis, and URL extraction.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/core/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": "backend/app/core/__init__.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/core/config.py",
+      "source_blob_sha": "b4d493ef41d8aa48e7156c75d22195b67405d93b",
+      "target_path": "backend/app/core/config.py",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Rebuild fail-closed stateless settings from both variants; remove mock and database defaults.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/main.py",
+      "source_blob_sha": "51c2bea46620cf274b73b9e6b4d20dabe8a1d71a",
+      "target_path": "backend/app/main.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/schemas/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": "backend/app/schemas/__init__.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/schemas/analysis.py",
+      "source_blob_sha": "c3bb2b337d2bc769820b8991660f0cbdcecbbfe2",
+      "target_path": "backend/app/schemas/analysis.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/schemas/health.py",
+      "source_blob_sha": "c5e84cff05ebfe21e3fa35f94e02c3608f08e904",
+      "target_path": "backend/app/schemas/health.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/services/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": "backend/app/services/__init__.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/services/analysis_service.py",
+      "source_blob_sha": "1f8eb0f39fabfd020d03ead2b6cb34191aa155ec",
+      "target_path": "backend/app/services/analysis_service.py",
+      "action": "COPY",
+      "reason": "Minimal stateless public API building block retained from the public source.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/services/inference_factory.py",
+      "source_blob_sha": "14cfab7d5c66fda9813859aeab9807306992bfb7",
+      "target_path": "backend/app/services/inference_factory.py",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Replace mock/private-plugin selection with direct fail-closed XGBoost composition.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/app/services/inference_service.py",
+      "source_blob_sha": "c817cbc6567fc1de9b81d3285089bfbbb5609cc1",
+      "target_path": "backend/app/services/inference_service.py",
+      "action": "ADAPT",
+      "reason": "Keep inference contracts and safe errors, but remove the production mock scorer.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/pytest.ini",
+      "source_blob_sha": "02ac0ab3169c61ef8ff8e6785f0b2352ca5db649",
+      "target_path": "backend/pytest.ini",
+      "action": "MERGE_REFERENCE",
+      "reason": "Merge markers and paths for the reduced backend and Phase 3 integration tests.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/requirements.txt",
+      "source_blob_sha": "3fc2454a8c59a5805dd30c5ef8cc291c74c2daff",
+      "target_path": "backend/requirements.txt",
+      "action": "MERGE_REFERENCE",
+      "reason": "Merge and minimize API, extraction, test, and selective XGBoost runtime dependencies.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/tests/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": "backend/tests/__init__.py",
+      "action": "COPY",
+      "reason": "Focused backend test retained for the minimal public API.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/tests/conftest.py",
+      "source_blob_sha": "74f9465d551a39375fb918161850836922aa6158",
+      "target_path": "backend/tests/conftest.py",
+      "action": "COPY",
+      "reason": "Focused backend test retained for the minimal public API.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/tests/test_analysis.py",
+      "source_blob_sha": "82c52030cebe0b42d7529486496c0d27ab032e53",
+      "target_path": "backend/tests/test_analysis.py",
+      "action": "ADAPT",
+      "reason": "Keep stateless batch contract tests while replacing assumptions about the default mock scorer.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/tests/test_deployment_preparation.py",
+      "source_blob_sha": "419560ba8ac97a88394e5085b702f528aab7add9",
+      "target_path": null,
+      "action": "EXCLUDE_OPERATIONAL",
+      "reason": "Tests the retired mock-only Docker recipe rather than the target application.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/tests/test_health.py",
+      "source_blob_sha": "25d42544668478761bd9df59978a5745c26494ae",
+      "target_path": "backend/tests/test_health.py",
+      "action": "COPY",
+      "reason": "Focused backend test retained for the minimal public API.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/tests/test_inference.py",
+      "source_blob_sha": "780fd8975a8f243ed7a8daefc87f7acb49a2df96",
+      "target_path": "backend/tests/test_inference.py",
+      "action": "ADAPT",
+      "reason": "Retain fail-closed inference behavior while removing mock and private-plugin expectations.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/tests/test_openapi_contract.py",
+      "source_blob_sha": "84d097ba4dfef8341a3d9c8a9d93f36be740582b",
+      "target_path": "backend/tests/test_openapi_contract.py",
+      "action": "MERGE_REFERENCE",
+      "reason": "Merge route expectations from both sources and expose only health, batch analysis, and URL extraction.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "backend/tests/test_public_materialization.py",
+      "source_blob_sha": "d3a12ef40cfeab3990a9c776ba89430469e23e36",
+      "target_path": null,
+      "action": "EXCLUDE_OLD_PACKAGING",
+      "reason": "Exercises the incomplete legacy PUBLIC_COMMIT_ALLOWLIST and a mock-only runtime.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "docs/ARCHITECTURE.md",
+      "source_blob_sha": "03b6b5028a3aa10bdf1f2c3985354a943693b704",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Superseded by the new migration, architecture, and publication documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "docs/BACKEND_DEVELOPMENT.md",
+      "source_blob_sha": "788e08ab8e2353f114b3d0084ef3ed264db530ee",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Superseded by the new migration, architecture, and publication documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "docs/DEPLOYMENT_SAFETY.md",
+      "source_blob_sha": "2e0a2b0b786461ac052f1932a5017eeb18088d45",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Superseded by the new migration, architecture, and publication documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "docs/FRONTEND_DEVELOPMENT.md",
+      "source_blob_sha": "1f769ba4bfee29f06989ee303f01bf7812af1939",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Superseded by the new migration, architecture, and publication documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "docs/PUBLIC_REPOSITORY_SCOPE.md",
+      "source_blob_sha": "0ce63a9d4af25cb34f048d1ba279d31c006878cf",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Superseded by the new migration, architecture, and publication documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "docs/TESTING.md",
+      "source_blob_sha": "df101872a16b3e44ae37d2e588969ddf9da99ee6",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Superseded by the new migration, architecture, and publication documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/eslint.config.js",
+      "source_blob_sha": "00cc9b5c5ad083fa5d520a3be0f158afb8f67053",
+      "target_path": "frontend/eslint.config.js",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/index.html",
+      "source_blob_sha": "91678d0eb5d2a81f31cd084d5abf64d0ba4c0cbb",
+      "target_path": "frontend/index.html",
+      "action": "ADAPT",
+      "reason": "Keep local document metadata but remove Google Fonts and references to untracked favicon/OG assets.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/package-lock.json",
+      "source_blob_sha": "2faf2d5c2a41041a14085a181eaed7799cf805c8",
+      "target_path": null,
+      "action": "EXCLUDE_GENERATED_LOCKFILE",
+      "reason": "Regenerate after the reduced package.json is approved; do not copy the old lock graph.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/package.json",
+      "source_blob_sha": "7741b5f8cf3ae98456cf5a021f4f837b6a5582b1",
+      "target_path": "frontend/package.json",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Rebuild the smallest dependency and script set from both variants; package-lock is regenerated afterward.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/playwright.config.mjs",
+      "source_blob_sha": "ebfca2ba2663292b9f3a2ee04594eb403dbdbbd8",
+      "target_path": "frontend/playwright.config.mjs",
+      "action": "ADAPT",
+      "reason": "Keep deterministic browser configuration without allowing any remote font request.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/postcss.config.js",
+      "source_blob_sha": "2aa7205d4b402a1bdfbe07110c61df920b370066",
+      "target_path": "frontend/postcss.config.js",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/App.tsx",
+      "source_blob_sha": "23a296a4bb8161b598c8273019f37249be4acc0f",
+      "target_path": "frontend/src/App.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/analysis/url-import-dialog.tsx",
+      "source_blob_sha": "a75fe0b125f8c6dcb562699e7bf09bc8828b666c",
+      "target_path": "frontend/src/components/analysis/url-import-dialog.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/brand/brand-mark.tsx",
+      "source_blob_sha": "66ed078ab30f8ec4cfe5ed2092dd349d4683447a",
+      "target_path": "frontend/src/components/brand/brand-mark.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/layout/app-shell.tsx",
+      "source_blob_sha": "28c8233a0df7d13f03c7ca6ec9efb8010f3ea922",
+      "target_path": "frontend/src/components/layout/app-shell.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/layout/header.tsx",
+      "source_blob_sha": "ab2fb35273e9398bc009a0eaca931671202feedf",
+      "target_path": "frontend/src/components/layout/header.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/layout/sidebar.tsx",
+      "source_blob_sha": "ac65255398f3dd399e7e4fd9ad45e9a60566a8a2",
+      "target_path": "frontend/src/components/layout/sidebar.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/shared/score-indicator.tsx",
+      "source_blob_sha": "ad180e0c0c37651e9f691971b41e4dc3e9385ca4",
+      "target_path": "frontend/src/components/shared/score-indicator.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/badge.tsx",
+      "source_blob_sha": "68009068b791cfd28cd8d6e9413b7b2b489fc286",
+      "target_path": "frontend/src/components/ui/badge.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/button.tsx",
+      "source_blob_sha": "1b46014bec0870b3748958dcfc89adc6890b03ea",
+      "target_path": "frontend/src/components/ui/button.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/card.tsx",
+      "source_blob_sha": "6154c7eada0409bed2d3d56c3c5660d36518c922",
+      "target_path": "frontend/src/components/ui/card.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/dialog.tsx",
+      "source_blob_sha": "2da6849385f4a6095163c04284b76ad587c8d097",
+      "target_path": "frontend/src/components/ui/dialog.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/drawer.tsx",
+      "source_blob_sha": "3cd7492238029c30850d4c25a6204395fa49986d",
+      "target_path": "frontend/src/components/ui/drawer.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/empty-state.tsx",
+      "source_blob_sha": "b4ccc6be167ceb0a053251414b8a7f5e058015b6",
+      "target_path": "frontend/src/components/ui/empty-state.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/input.tsx",
+      "source_blob_sha": "342a277f3daa8357523db95827747ba8f99a9b5c",
+      "target_path": "frontend/src/components/ui/input.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/select.tsx",
+      "source_blob_sha": "beda76374b074b228ccaa6bc3fbe58276d8ea46d",
+      "target_path": "frontend/src/components/ui/select.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/skeleton.tsx",
+      "source_blob_sha": "ab9e6901dca28025491160e17b3460de05a993ad",
+      "target_path": "frontend/src/components/ui/skeleton.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/table.tsx",
+      "source_blob_sha": "1c95e369e65ec6dad6e043d1ced859ed2bec8ce0",
+      "target_path": "frontend/src/components/ui/table.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/textarea.tsx",
+      "source_blob_sha": "d951ce1dac0847b24361f66bdbb4997bfd6b5788",
+      "target_path": "frontend/src/components/ui/textarea.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/components/ui/tooltip.tsx",
+      "source_blob_sha": "aa8ab6c6cdb63d3207fd9a4f4a8cceec1ec988cf",
+      "target_path": "frontend/src/components/ui/tooltip.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/hooks/useApiHooks.ts",
+      "source_blob_sha": "aad3ca10b3beb13b2fb2ce60a1f92aa564bc514b",
+      "target_path": "frontend/src/hooks/useApiHooks.ts",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/index.css",
+      "source_blob_sha": "14c7f5fed8c1731e89ad9523c80ba13f427f0e48",
+      "target_path": "frontend/src/index.css",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/lib/csv.ts",
+      "source_blob_sha": "402782734fec77474e256d87ce15c0e0746fe59d",
+      "target_path": "frontend/src/lib/csv.ts",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/lib/news-ingestion.ts",
+      "source_blob_sha": "0fcac383b4cff4680f7ae3d9d40b938fe821a185",
+      "target_path": "frontend/src/lib/news-ingestion.ts",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/lib/txt-import.ts",
+      "source_blob_sha": "2945d79b42cfe1a7338a7c4fa28fcc5c6ee48e00",
+      "target_path": "frontend/src/lib/txt-import.ts",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/lib/utils.ts",
+      "source_blob_sha": "c7ccd4463603fe654b1950b93b7e624cd9af6e3d",
+      "target_path": "frontend/src/lib/utils.ts",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/main.tsx",
+      "source_blob_sha": "ea9e3630a4f82a3cc92500297b28fa6f1ff72a75",
+      "target_path": "frontend/src/main.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/pages/analizar.tsx",
+      "source_blob_sha": "f504a235f6416fb0da9509f16e752031f3d4ae10",
+      "target_path": "frontend/src/pages/analizar.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/pages/resultados.tsx",
+      "source_blob_sha": "9f0145b896eed821796e0b5c2a9953c3d4252c4c",
+      "target_path": "frontend/src/pages/resultados.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/services/api/httpAdapter.ts",
+      "source_blob_sha": "ec3aa022d0e21c0be3ca18a7f8fa45b0200faf12",
+      "target_path": "frontend/src/services/api/httpAdapter.ts",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/services/api/index.ts",
+      "source_blob_sha": "7a1d05306b0d0e1c743f220f271e8bddc83ad4c3",
+      "target_path": "frontend/src/services/api/index.ts",
+      "action": "ADAPT",
+      "reason": "Use the HTTP adapter only; production must never default to mock scoring.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/services/api/mockAdapter.ts",
+      "source_blob_sha": "2b582f9c168ba3396136b3676eac0f01f0df39f5",
+      "target_path": null,
+      "action": "EXCLUDE_MOCK_PRODUCTION",
+      "reason": "Fixture scoring is not part of the public production product.",
+      "phase": 1
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/session/batch-session.tsx",
+      "source_blob_sha": "f110e34826939f0721210b7e1fc01f49eeafc021",
+      "target_path": "frontend/src/session/batch-session.tsx",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/types/api.ts",
+      "source_blob_sha": "97294852b2e0f530a390961544091682f265e1ac",
+      "target_path": "frontend/src/types/api.ts",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/types/index.ts",
+      "source_blob_sha": "b1c13e734067ace9fc48b7e0e9a78338aa2aaa5b",
+      "target_path": "frontend/src/types/index.ts",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/src/vite-env.d.ts",
+      "source_blob_sha": "c27d15dae4333400f5d6f986fe713e6eed46197b",
+      "target_path": "frontend/src/vite-env.d.ts",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tailwind.config.js",
+      "source_blob_sha": "e556cf9b38e9dcd03b719ef3cdc3f3317b0ea21b",
+      "target_path": "frontend/tailwind.config.js",
+      "action": "ADAPT",
+      "reason": "Keep the lean theme while using system/local font stacks only.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tests/check-csv-export.mjs",
+      "source_blob_sha": "d3d007e32f82c55c5fab6c7d0c5cd229c8921b35",
+      "target_path": "frontend/tests/check-csv-export.mjs",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tests/check-txt-import.mjs",
+      "source_blob_sha": "6eca26f19c188c545190bb0a5a80aad3660b7b84",
+      "target_path": "frontend/tests/check-txt-import.mjs",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tests/check-ui-copy.mjs",
+      "source_blob_sha": "008cc8a2ffa94144e73b9d5dd01b0d8a79a35876",
+      "target_path": "frontend/tests/check-ui-copy.mjs",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tests/check-url-import-api.mjs",
+      "source_blob_sha": "c08b76338a9b2ad231468738a70baf705e18c440",
+      "target_path": "frontend/tests/check-url-import-api.mjs",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tests/check-url-import-batch.mjs",
+      "source_blob_sha": "d8a5d5a3823d56679a9718fbdcef1f35f05d106f",
+      "target_path": "frontend/tests/check-url-import-batch.mjs",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tests/check-url-import-ui.mjs",
+      "source_blob_sha": "4054995e0d45143aa83c523dea86486e59b75789",
+      "target_path": "frontend/tests/check-url-import-ui.mjs",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tests/check-url-import-ux.mjs",
+      "source_blob_sha": "7e78f562f0b1b86e2a71235988ffefefb3e36d05",
+      "target_path": "frontend/tests/check-url-import-ux.mjs",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tests/e2e/batch-flow.spec.mjs",
+      "source_blob_sha": "9b6331c91d00eaf7d0c7465e6413ec6d74094bb3",
+      "target_path": "frontend/tests/e2e/batch-flow.spec.mjs",
+      "action": "ADAPT",
+      "reason": "Keep batch/URL/TXT/results/CSV journeys and require zero non-API remote asset requests.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tsconfig.app.json",
+      "source_blob_sha": "634ce426f2b743c94fd250c0a05de5bea9ec34e8",
+      "target_path": "frontend/tsconfig.app.json",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tsconfig.json",
+      "source_blob_sha": "1ffef600d959ec9e396d5a260bd3f5b927b2cef8",
+      "target_path": "frontend/tsconfig.json",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/tsconfig.node.json",
+      "source_blob_sha": "84bdd541dd4a5ad4cd47acbfe3e75c864d24f124",
+      "target_path": "frontend/tsconfig.node.json",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "public_product",
+      "source_path": "frontend/vite.config.ts",
+      "source_blob_sha": "8636f6dab6da6b5683d2b731e53e0f174b48b0e2",
+      "target_path": "frontend/vite.config.ts",
+      "action": "COPY",
+      "reason": "Lean public frontend or focused test retained for batch, manual, URL, TXT, results, CSV, or session-only behavior.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": ".dockerignore",
+      "source_blob_sha": "14aef83310f3b15f5e84846094089bba548daef2",
+      "target_path": null,
+      "action": "EXCLUDE_OPERATIONAL",
+      "reason": "Legacy private Docker context policy; Docker will be rewritten later.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": ".gitattributes",
+      "source_blob_sha": "467359ba78d78dc4532eeeb3f73d0adabbf4bbdf",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": ".gitignore",
+      "source_blob_sha": "b5da6907b47199fe6a2132d2ab93fbb73fd630d7",
+      "target_path": ".gitignore",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Reference for the new deny-by-default ignore file; merge with the public variant.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "CONTRIBUTING.md",
+      "source_blob_sha": "344fe8852ff6cb9e61bcb13ce7e260bd59f875c3",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Private legacy documentation is superseded by the new public migration documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "Dockerfile",
+      "source_blob_sha": "d5dbeca77fa56b19fac67bd51547621c8d23e6cf",
+      "target_path": null,
+      "action": "EXCLUDE_OPERATIONAL",
+      "reason": "Old database/deployment Dockerfile; Docker is rewritten only after Phase 2.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "LICENSE",
+      "source_blob_sha": "aceed94975d0da6a0b25a8dbfa35d6998db32b6f",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "MODEL_ARTIFACTS_NOTICE.md",
+      "source_blob_sha": "a665fd19d5612bb5ce31aa3f0e9cef1041cbb18d",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Superseded by the new Phase 3 artifact policy.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "PUBLIC_COMMIT_ALLOWLIST.txt",
+      "source_blob_sha": "c203e2a67a3c4b4416e122579cef28bc40d38342",
+      "target_path": null,
+      "action": "EXCLUDE_OLD_PACKAGING",
+      "reason": "Legacy private/public packaging manifest is not the approved two-source allowlist.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "README.md",
+      "source_blob_sha": "1149b05ba9f70f5b2929f059e8c9f2c9fe068ad9",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Private legacy documentation is superseded by the new public migration documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/.env.example",
+      "source_blob_sha": "9571689804ed7883b87eb806b03e02d0b2b8fcd5",
+      "target_path": ".env.example",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Create one sanitized, DB-free, mock-free example with placeholders only.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/.env.production.example",
+      "source_blob_sha": "3c62b66ea6767d4c46b86cefdf12bf67fac2a269",
+      "target_path": null,
+      "action": "EXCLUDE_OPERATIONAL",
+      "reason": "Legacy deployment template includes database and mock-era assumptions.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/alembic.ini",
+      "source_blob_sha": "1b92970b584f4f9c3c7a60880d7daa82c3e5f322",
+      "target_path": null,
+      "action": "EXCLUDE_PERSISTENCE",
+      "reason": "Database/Alembic persistence is outside the stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/alembic/env.py",
+      "source_blob_sha": "064e7385bc02cc90f53f10958a004af95bc4d4fd",
+      "target_path": null,
+      "action": "EXCLUDE_PERSISTENCE",
+      "reason": "Database/Alembic persistence is outside the stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/alembic/script.py.mako",
+      "source_blob_sha": "92a9fddac2dd8cc04285b8106cb898f009477436",
+      "target_path": null,
+      "action": "EXCLUDE_PERSISTENCE",
+      "reason": "Database/Alembic persistence is outside the stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/alembic/versions/001_initial_schema.py",
+      "source_blob_sha": "36c97007e62b762db0a53974ec5ade6ed4c78101",
+      "target_path": null,
+      "action": "EXCLUDE_PERSISTENCE",
+      "reason": "Database/Alembic persistence is outside the stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/alembic/versions/002_integrity_constraints.py",
+      "source_blob_sha": "8f582a37258624962a4672cf15df0b0bce0934c3",
+      "target_path": null,
+      "action": "EXCLUDE_PERSISTENCE",
+      "reason": "Database/Alembic persistence is outside the stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/__init__.py",
+      "source_blob_sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/api/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/api/v1/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/api/v1/endpoints/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/api/v1/endpoints/analysis.py",
+      "source_blob_sha": "af5efc11765c758abe65582932e824b2ef3fdc0f",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/api/v1/endpoints/cases.py",
+      "source_blob_sha": "c5e47d928e45e1f67683deeaf0882bfd8281f72b",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Case/editorial workflow is explicitly outside product scope.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/api/v1/endpoints/extractions.py",
+      "source_blob_sha": "de30cb20e104d803ab6491ce0bf66a2a114dfb99",
+      "target_path": "backend/app/api/v1/endpoints/extractions.py",
+      "action": "ADAPT",
+      "reason": "Retain URL extraction but compose one shared HttpFetcher/rate limiter instead of one instance per request.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/api/v1/endpoints/health.py",
+      "source_blob_sha": "90d12d56c1e3bb825669db84170f2334c5353f3a",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/api/v1/endpoints/model_info.py",
+      "source_blob_sha": "5e9e61ab5f394bc42cb5c7f585ce4530539f4aa3",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Model-information route is not required by the minimal anonymous prioritization flow.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/api/v1/router.py",
+      "source_blob_sha": "942856b714769ef5b84eb0a8ba57220ddcb8fd35",
+      "target_path": "backend/app/api/v1/router.py",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Rebuild the router from both variants with only health, batch analysis, and URL extraction.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/core/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/core/config.py",
+      "source_blob_sha": "f075c30e9aa37dc5b1ebbb4a942babb77c64e48a",
+      "target_path": "backend/app/core/config.py",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Rebuild fail-closed stateless settings from both variants; remove mock and database defaults.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/db/base.py",
+      "source_blob_sha": "f75ec448b833fda2a1b7799fca3763a714850752",
+      "target_path": null,
+      "action": "EXCLUDE_PERSISTENCE",
+      "reason": "Database/Alembic persistence is outside the stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/db/models.py",
+      "source_blob_sha": "d92f4126aafc1723040fd6f81af94466bea0364f",
+      "target_path": null,
+      "action": "EXCLUDE_PERSISTENCE",
+      "reason": "Database/Alembic persistence is outside the stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/db/session.py",
+      "source_blob_sha": "95fb3c5a6a076af3022ccddbf8c916568bd869ff",
+      "target_path": null,
+      "action": "EXCLUDE_PERSISTENCE",
+      "reason": "Database/Alembic persistence is outside the stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/main.py",
+      "source_blob_sha": "51c2bea46620cf274b73b9e6b4d20dabe8a1d71a",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/ml/__init__.py",
+      "source_blob_sha": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+      "target_path": "backend/app/ml/__init__.py",
+      "action": "COPY",
+      "reason": "Package marker for the selective public ML runtime.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/ml/preprocessing.py",
+      "source_blob_sha": "9f3ddd4d8919db9c4fdc5efde307a4dc80f6ea19",
+      "target_path": "backend/app/ml/preprocessing.py",
+      "action": "COPY",
+      "reason": "Training-compatible plain-text preprocessing required by XGBoost inference.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/repositories/analysis_repository.py",
+      "source_blob_sha": "351387562774638e94ca23598ada6e062a1ea194",
+      "target_path": null,
+      "action": "EXCLUDE_PERSISTENCE",
+      "reason": "Database/Alembic persistence is outside the stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/repositories/case_repository.py",
+      "source_blob_sha": "7d42a0514b770a25d05463c456fbfaeaccb81077",
+      "target_path": null,
+      "action": "EXCLUDE_PERSISTENCE",
+      "reason": "Database/Alembic persistence is outside the stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/schemas/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/schemas/analysis.py",
+      "source_blob_sha": "c3bb2b337d2bc769820b8991660f0cbdcecbbfe2",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/schemas/cases.py",
+      "source_blob_sha": "34e731786a155217d248fe5765b42afee53dc3cb",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Case/editorial workflow is explicitly outside product scope.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/schemas/extraction.py",
+      "source_blob_sha": "ae05bbde73f27909cf90ef11c2329a527c8bc7bb",
+      "target_path": "backend/app/schemas/extraction.py",
+      "action": "COPY",
+      "reason": "Bounded request, preview, and sanitized error contracts for URL import.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/schemas/health.py",
+      "source_blob_sha": "c5e84cff05ebfe21e3fa35f94e02c3608f08e904",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/schemas/model.py",
+      "source_blob_sha": "1bf5a9416665ad7305129dfd897dfe9db9d2ebb7",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Schema supports the excluded model-information endpoint.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/services/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/services/analysis_service.py",
+      "source_blob_sha": "1f8eb0f39fabfd020d03ead2b6cb34191aa155ec",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/services/article_extractor.py",
+      "source_blob_sha": "5103f1dd0f44696a689e54116faca1b37264ffde",
+      "target_path": "backend/app/services/article_extractor.py",
+      "action": "COPY",
+      "reason": "Deterministic bounded article extraction required by URL import.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/services/case_service.py",
+      "source_blob_sha": "b76aa5a8e9394c1e60c0e2f77b9e390bfd093851",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Case/editorial workflow is explicitly outside product scope.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/services/extraction_text.py",
+      "source_blob_sha": "60049959f9dda0a7d166bf46d50b5919d03e89b2",
+      "target_path": "backend/app/services/extraction_text.py",
+      "action": "COPY",
+      "reason": "Text normalization and truncation required by URL import.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/services/http_fetcher.py",
+      "source_blob_sha": "23657d18397ed29977b4a822296f800f8e0d39ad",
+      "target_path": "backend/app/services/http_fetcher.py",
+      "action": "ADAPT",
+      "reason": "Retain DNS pinning, redirect validation, proxy disabling, time and body bounds; make concurrency and rate limits process-wide in Phase 2.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/services/inference_factory.py",
+      "source_blob_sha": "8efb50701b23fb2379f169bfef28249146728f56",
+      "target_path": "backend/app/services/inference_factory.py",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Replace mock/private-plugin selection with direct fail-closed XGBoost composition.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/services/inference_service.py",
+      "source_blob_sha": "c817cbc6567fc1de9b81d3285089bfbbb5609cc1",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/services/url_extraction_service.py",
+      "source_blob_sha": "fab3c8829af0b9f7a2ef637906ed9bd3ad71cccf",
+      "target_path": "backend/app/services/url_extraction_service.py",
+      "action": "COPY",
+      "reason": "Stateless orchestration with sanitized errors and no content persistence.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/app/services/url_security.py",
+      "source_blob_sha": "a8fc55cdb12431707b4b694f970e39ed5408f728",
+      "target_path": "backend/app/services/url_security.py",
+      "action": "COPY",
+      "reason": "Strong SSRF boundary: public IP validation, DNS answer pinning, and redirect revalidation.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/owner_private/Dockerfile.xgboost-owner",
+      "source_blob_sha": "8f543d2e69591423b89ddb1cf839930b6d32b072",
+      "target_path": null,
+      "action": "EXCLUDE_OPERATIONAL",
+      "reason": "Private artifact-bundling Dockerfile is not the target public deployment recipe.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/owner_private/Dockerfile.xgboost-owner.dockerignore",
+      "source_blob_sha": "f4cc503293de956c18fb8f1cda2190bd21d37b52",
+      "target_path": null,
+      "action": "EXCLUDE_OPERATIONAL",
+      "reason": "Private artifact-bundling context belongs to the retired packaging flow.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/owner_private/owner_xgboost.py",
+      "source_blob_sha": "f1a15f498ea5561a08f51078fc6731240d39496e",
+      "target_path": "backend/app/ml/xgboost_inference.py",
+      "action": "ADAPT",
+      "reason": "Move into the public ML package and verify approved hashes/lineage before any joblib.load.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/owner_private/requirements.xgboost-owner.txt",
+      "source_blob_sha": "e118b55072838256d39e19dd64e6066ebb3b111b",
+      "target_path": "backend/requirements.txt",
+      "action": "MERGE_REFERENCE",
+      "reason": "Merge only the required XGBoost/scikit-learn/scipy/joblib runtime dependencies.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/owner_private/test_xgboost_private_integration.py",
+      "source_blob_sha": "7042deb9f837c7bfafc202f743de7a22708d4f16",
+      "target_path": "backend/tests/test_xgboost_integration.py",
+      "action": "PENDING_PHASE_3",
+      "reason": "Artifact-dependent integration test is admitted only with approved Phase 3 model/vectorizer/config assets.",
+      "phase": 3
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/owner_private/test_xgboost_private_recipe_contract.py",
+      "source_blob_sha": "352f1f252d7c88509e6a06def6d35cf9e13ef403",
+      "target_path": null,
+      "action": "EXCLUDE_OLD_PACKAGING",
+      "reason": "Tests the retired owner-private Docker packaging recipe.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/pytest.ini",
+      "source_blob_sha": "a6cd37796f528e0c242342dbbf8d19c247fc6469",
+      "target_path": "backend/pytest.ini",
+      "action": "MERGE_REFERENCE",
+      "reason": "Merge markers and paths for the reduced backend and Phase 3 integration tests.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/requirements.txt",
+      "source_blob_sha": "823801ad136cc228bcd45f1d576c4b84033b365f",
+      "target_path": "backend/requirements.txt",
+      "action": "MERGE_REFERENCE",
+      "reason": "Merge and minimize API, extraction, test, and selective XGBoost runtime dependencies.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/scripts/seed_demo.py",
+      "source_blob_sha": "8f71da56ddbd87b65d837d5a2b1234fd60ebc780",
+      "target_path": null,
+      "action": "EXCLUDE_MOCK_PRODUCTION",
+      "reason": "Database-backed demo seeding is outside the anonymous stateless product.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/__init__.py",
+      "source_blob_sha": "912256a340a7948a2e5059d9d45a6afaea44e5a4",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/conftest.py",
+      "source_blob_sha": "74f9465d551a39375fb918161850836922aa6158",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/fixtures/article_extractor/boilerplate.html",
+      "source_blob_sha": "145b397ba4bb78eb7e73f84a8d3376ba9e1302a8",
+      "target_path": "backend/tests/fixtures/article_extractor/boilerplate.html",
+      "action": "COPY",
+      "reason": "Synthetic local HTML fixture for safe deterministic extraction tests; not scraped Ecuador data.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/fixtures/article_extractor/empty_article.html",
+      "source_blob_sha": "269c2a8e247b6af25ef9a22b23840a4c7356736f",
+      "target_path": "backend/tests/fixtures/article_extractor/empty_article.html",
+      "action": "COPY",
+      "reason": "Synthetic local HTML fixture for safe deterministic extraction tests; not scraped Ecuador data.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/fixtures/article_extractor/javascript_only.html",
+      "source_blob_sha": "2e3ac9ddc99a66f08924af824fb72da674e8a4d0",
+      "target_path": "backend/tests/fixtures/article_extractor/javascript_only.html",
+      "action": "COPY",
+      "reason": "Synthetic local HTML fixture for safe deterministic extraction tests; not scraped Ecuador data.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/fixtures/article_extractor/latin1_article.html",
+      "source_blob_sha": "ea0f11cc10e303d855509ed48c43319371125a83",
+      "target_path": "backend/tests/fixtures/article_extractor/latin1_article.html",
+      "action": "COPY",
+      "reason": "Synthetic local HTML fixture for safe deterministic extraction tests; not scraped Ecuador data.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/fixtures/article_extractor/normal_news.html",
+      "source_blob_sha": "ad9ec1576704769ce3b5ded2344ed1879f21efae",
+      "target_path": "backend/tests/fixtures/article_extractor/normal_news.html",
+      "action": "COPY",
+      "reason": "Synthetic local HTML fixture for safe deterministic extraction tests; not scraped Ecuador data.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/fixtures/article_extractor/partial_paywall.html",
+      "source_blob_sha": "2c2549d8d8de58ff52e7168bd917711eaa6defcb",
+      "target_path": "backend/tests/fixtures/article_extractor/partial_paywall.html",
+      "action": "COPY",
+      "reason": "Synthetic local HTML fixture for safe deterministic extraction tests; not scraped Ecuador data.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/fixtures/article_extractor/wordpress_article.html",
+      "source_blob_sha": "64f8f54dd14b74fdc84d99339eefd1d70d27cc9a",
+      "target_path": "backend/tests/fixtures/article_extractor/wordpress_article.html",
+      "action": "COPY",
+      "reason": "Synthetic local HTML fixture for safe deterministic extraction tests; not scraped Ecuador data.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_analysis.py",
+      "source_blob_sha": "82c52030cebe0b42d7529486496c0d27ab032e53",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_article_extractor.py",
+      "source_blob_sha": "d328fcf3a06271a573ffd726f4e004da51fc109a",
+      "target_path": "backend/tests/test_article_extractor.py",
+      "action": "COPY",
+      "reason": "Focused deterministic test for the approved URL extraction/SSRF boundary.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_deployment_preparation.py",
+      "source_blob_sha": "03b295012cf9ec3a54fba41931a50afe8b8db6c9",
+      "target_path": null,
+      "action": "EXCLUDE_OPERATIONAL",
+      "reason": "Tests the retired private Docker/deployment recipe.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_extraction_contract.py",
+      "source_blob_sha": "4143fb02843077e7a37707e95e225628a08b15e3",
+      "target_path": "backend/tests/test_extraction_contract.py",
+      "action": "COPY",
+      "reason": "Focused deterministic test for the approved URL extraction/SSRF boundary.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_extraction_inference_isolation.py",
+      "source_blob_sha": "b9fd7855439ded089162ae6cd65cb6a659f3516c",
+      "target_path": "backend/tests/test_extraction_inference_isolation.py",
+      "action": "COPY",
+      "reason": "Focused deterministic test for the approved URL extraction/SSRF boundary.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_extraction_text.py",
+      "source_blob_sha": "7055c558435ef688b2ef016113d492aad45b9424",
+      "target_path": "backend/tests/test_extraction_text.py",
+      "action": "COPY",
+      "reason": "Focused deterministic test for the approved URL extraction/SSRF boundary.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_health.py",
+      "source_blob_sha": "25d42544668478761bd9df59978a5745c26494ae",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_http_fetcher.py",
+      "source_blob_sha": "476c56daaa477f0188d365ca8a38e53817ff9d7e",
+      "target_path": "backend/tests/test_http_fetcher.py",
+      "action": "ADAPT",
+      "reason": "Keep SSRF/resource-bound tests and add shared process-wide limiter coverage.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_inference.py",
+      "source_blob_sha": "780fd8975a8f243ed7a8daefc87f7acb49a2df96",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_openapi_contract.py",
+      "source_blob_sha": "349d35830c5418701da6e4f2157bc3b4d8fef461",
+      "target_path": "backend/tests/test_openapi_contract.py",
+      "action": "MERGE_REFERENCE",
+      "reason": "Merge route expectations from both sources and exclude cases/model-info.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_runtime_import_closure.py",
+      "source_blob_sha": "a371cb3d8c94e72faef1366055c6835531533e9e",
+      "target_path": "backend/tests/test_runtime_import_closure.py",
+      "action": "ADAPT",
+      "reason": "Verify the reduced runtime imports extraction and ML only, with no persistence/editorial packages.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_url_extraction_endpoint.py",
+      "source_blob_sha": "47d4db79277509ac82dda94236f09e4943210e44",
+      "target_path": "backend/tests/test_url_extraction_endpoint.py",
+      "action": "ADAPT",
+      "reason": "Keep endpoint/error coverage and assert shared HttpFetcher composition.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "backend/tests/test_url_security.py",
+      "source_blob_sha": "c7bf3cffaad2c96129c7d22070cb16c2766927e9",
+      "target_path": "backend/tests/test_url_security.py",
+      "action": "COPY",
+      "reason": "Focused deterministic test for the approved URL extraction/SSRF boundary.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "docs/ARCHITECTURE.md",
+      "source_blob_sha": "c030aad97285b4fc96f1357b6c503a2bed8af1ab",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Private legacy documentation is superseded by the new public migration documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "docs/BACKEND_DEVELOPMENT.md",
+      "source_blob_sha": "60e80f484de7928a86618a3ecd90fee99fd18f85",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Private legacy documentation is superseded by the new public migration documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "docs/DEPLOYMENT_SAFETY.md",
+      "source_blob_sha": "093f0434b8535079b2524bebc7ea316a147b4bfc",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Private legacy documentation is superseded by the new public migration documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "docs/FRONTEND_DEVELOPMENT.md",
+      "source_blob_sha": "35d7c618e31d095a48189d1c84f6105fe7d254f6",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Private legacy documentation is superseded by the new public migration documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "docs/PUBLIC_REPOSITORY_SCOPE.md",
+      "source_blob_sha": "4bd54d4db55dac165d1390e9ed566f1e6614e83e",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Private legacy documentation is superseded by the new public migration documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "docs/TESTING.md",
+      "source_blob_sha": "c807ec0d9d49026d25c3bb02441b09aefd6e958d",
+      "target_path": null,
+      "action": "EXCLUDE_OBSOLETE_DOCUMENTATION",
+      "reason": "Private legacy documentation is superseded by the new public migration documentation.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "fly.toml",
+      "source_blob_sha": "c7096602d849962c62ef9485c33a70bd5e79fdc4",
+      "target_path": null,
+      "action": "EXCLUDE_OPERATIONAL",
+      "reason": "Legacy Fly deployment configuration is not a target source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/.env.example",
+      "source_blob_sha": "f9d63a69ca86f65cee1e8addb0f616a167e7a427",
+      "target_path": "frontend/.env.example",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Create a sanitized HTTP-only API example; remove mock mode.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/eslint.config.js",
+      "source_blob_sha": "00cc9b5c5ad083fa5d520a3be0f158afb8f67053",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/index.html",
+      "source_blob_sha": "7a6e91a46bb75756d5e3c31f0a8bf0b86296e768",
+      "target_path": null,
+      "action": "EXCLUDE_REMOTE_ASSET",
+      "reason": "Private legacy shell depends on Google Fonts; the public shell is adapted to local assets instead.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/package-lock.json",
+      "source_blob_sha": "2faf2d5c2a41041a14085a181eaed7799cf805c8",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/package.json",
+      "source_blob_sha": "1ad89c88741ffb27b5c74a4b8013428e7b12a2e6",
+      "target_path": "frontend/package.json",
+      "action": "REWRITE_REFERENCE",
+      "reason": "Rebuild the smallest dependency and script set from both variants; package-lock is regenerated afterward.",
+      "phase": 2
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/postcss.config.js",
+      "source_blob_sha": "2aa7205d4b402a1bdfbe07110c61df920b370066",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/App.tsx",
+      "source_blob_sha": "a6457fcb8009af24abd28a9bd87ae593e4dc9ed5",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/layout/app-shell.tsx",
+      "source_blob_sha": "eafb13541a3d4145ce795614e08abba18f053f83",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/layout/header.tsx",
+      "source_blob_sha": "6e39319ba48acce4f7e53d78f54e6ffdc11caf4e",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/layout/sidebar.tsx",
+      "source_blob_sha": "f6cb622a158e77e9c4ce0d0bf4e2089fc624ff26",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/shared/score-indicator.tsx",
+      "source_blob_sha": "bd88188092e5204927802c47d67c58c1dcc779f7",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/shared/status-badge.tsx",
+      "source_blob_sha": "09265e8c3e04c614c125db26687d4221cdb18d1d",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/badge.tsx",
+      "source_blob_sha": "b1ad3b6dbeb9e903913e2625ec8de15555d0945d",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/button.tsx",
+      "source_blob_sha": "059aece704e579b05295e64b519b02a8943e77c4",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/card.tsx",
+      "source_blob_sha": "94aa28de66c97685d51dac88809965051fe02631",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/dialog.tsx",
+      "source_blob_sha": "b87b6cb4e9f690b3f5c4fc0b9b203844bc3a4fab",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/drawer.tsx",
+      "source_blob_sha": "2276fd9ff7eb553c5215ee5807c4ad6a67b7e441",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/empty-state.tsx",
+      "source_blob_sha": "b4ccc6be167ceb0a053251414b8a7f5e058015b6",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/input.tsx",
+      "source_blob_sha": "b73ecdc717b255afb064057656edcdf1749181a5",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/select.tsx",
+      "source_blob_sha": "beda76374b074b228ccaa6bc3fbe58276d8ea46d",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/skeleton.tsx",
+      "source_blob_sha": "6946ec319b03d6d83a7f57efdce8d552238495db",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/table.tsx",
+      "source_blob_sha": "1c95e369e65ec6dad6e043d1ced859ed2bec8ce0",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/textarea.tsx",
+      "source_blob_sha": "d951ce1dac0847b24361f66bdbb4997bfd6b5788",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/components/ui/tooltip.tsx",
+      "source_blob_sha": "a4e3623bde1a40a452e54896e9f2f989b7792ef5",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/hooks/useApiHooks.ts",
+      "source_blob_sha": "ced0d7b7b35a4a9169e9e27c164580efd0a4df94",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/hooks/useTheme.ts",
+      "source_blob_sha": "d7363f43a9e3cdcd09f658fa6c080d624f32d550",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/index.css",
+      "source_blob_sha": "25f9c0da4eff1c54dccfe27ed7772705464db84c",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/lib/utils.ts",
+      "source_blob_sha": "c7ccd4463603fe654b1950b93b7e624cd9af6e3d",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/main.tsx",
+      "source_blob_sha": "ea9e3630a4f82a3cc92500297b28fa6f1ff72a75",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/pages/analizar.tsx",
+      "source_blob_sha": "d10cca0e5aee42131426e2a39de631ac3624970c",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Private page belongs to the dashboard/case/model-info/design-system legacy UI; use the lean public flow.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/pages/case-detail.tsx",
+      "source_blob_sha": "b7c6bec9456464b14549b628ab07c796454f9e8e",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Private page belongs to the dashboard/case/model-info/design-system legacy UI; use the lean public flow.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/pages/cola.tsx",
+      "source_blob_sha": "68942add2fd8d6dcc396a4afc20fe8ebb15185d4",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Private page belongs to the dashboard/case/model-info/design-system legacy UI; use the lean public flow.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/pages/dashboard.tsx",
+      "source_blob_sha": "679118a2dd7827b41af663d736f95b680daaa1e1",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Private page belongs to the dashboard/case/model-info/design-system legacy UI; use the lean public flow.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/pages/design-system.tsx",
+      "source_blob_sha": "ef090cf8fe6a86b09a917c0757b5711f99b71de5",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Private page belongs to the dashboard/case/model-info/design-system legacy UI; use the lean public flow.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/pages/model-info.tsx",
+      "source_blob_sha": "aba5f7433409b24b92dfed4329f173d43ff640ec",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Private page belongs to the dashboard/case/model-info/design-system legacy UI; use the lean public flow.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/pages/not-found.tsx",
+      "source_blob_sha": "0d9eefffb52846cc37c78d268084408f34f1b468",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Private page belongs to the dashboard/case/model-info/design-system legacy UI; use the lean public flow.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/pages/placeholder-page.tsx",
+      "source_blob_sha": "5bf470799ba6df3797940a7d52721f2cd8c96c3e",
+      "target_path": null,
+      "action": "EXCLUDE_LEGACY_EDITORIAL",
+      "reason": "Private page belongs to the dashboard/case/model-info/design-system legacy UI; use the lean public flow.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/services/api/httpAdapter.ts",
+      "source_blob_sha": "0b5f79741628122c3d8e5ec65aabf746d04604db",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/services/api/index.ts",
+      "source_blob_sha": "7a1d05306b0d0e1c743f220f271e8bddc83ad4c3",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/services/api/mockAdapter.ts",
+      "source_blob_sha": "e91b5ac414546386cac312f31ee0d42e0460c418",
+      "target_path": null,
+      "action": "EXCLUDE_MOCK_PRODUCTION",
+      "reason": "Private mock adapter includes legacy product fixtures and cannot ship in production.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/services/api/mockData.ts",
+      "source_blob_sha": "2720b9533d0b6be203dc6539cb41a1f610e53ed9",
+      "target_path": null,
+      "action": "EXCLUDE_MOCK_PRODUCTION",
+      "reason": "Legacy case/dashboard fixture data is not public production behavior.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/types/api.contract-check.ts",
+      "source_blob_sha": "eb35ecd0667c0015ba88af216f2d2b3119131433",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/types/api.ts",
+      "source_blob_sha": "ca6960cdc9c6c8ab53dcab8f038fda63852dc569",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/types/index.ts",
+      "source_blob_sha": "b1c13e734067ace9fc48b7e0e9a78338aa2aaa5b",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/src/vite-env.d.ts",
+      "source_blob_sha": "c27d15dae4333400f5d6f986fe713e6eed46197b",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/tailwind.config.js",
+      "source_blob_sha": "4023cf61ba4801a441ed0030ad0e1cb0dd9d05cc",
+      "target_path": null,
+      "action": "EXCLUDE_UNUSED_UI",
+      "reason": "Private frontend variant is legacy or superseded by the lean public batch/session-only source.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/tsconfig.app.json",
+      "source_blob_sha": "634ce426f2b743c94fd250c0a05de5bea9ec34e8",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/tsconfig.json",
+      "source_blob_sha": "1ffef600d959ec9e396d5a260bd3f5b927b2cef8",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/tsconfig.node.json",
+      "source_blob_sha": "84bdd541dd4a5ad4cd47acbfe3e75c864d24f124",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    },
+    {
+      "source_role": "private_capability",
+      "source_path": "frontend/vite.config.ts",
+      "source_blob_sha": "8636f6dab6da6b5683d2b731e53e0f174b48b0e2",
+      "target_path": null,
+      "action": "EXCLUDE_DUPLICATE_PUBLIC",
+      "reason": "Byte-identical to the public blob at the same path; the public source is classified once and this duplicate is not copied.",
+      "phase": 1
+    }
+  ],
+  "external_assets": [
+    {
+      "source_role": "external_assets",
+      "source_path": "external://artifacts/mejor_modelo.joblib",
+      "source_blob_sha": null,
+      "target_path": "backend/artifacts/mejor_modelo.joblib",
+      "action": "PENDING_PHASE_3",
+      "reason": "Real XGBoost model is not tracked in either frozen tree; admit only after rights, lineage, approved SHA-256, and safe pre-deserialization verification.",
+      "phase": 3
+    },
+    {
+      "source_role": "external_assets",
+      "source_path": "external://artifacts/tfidf_vectorizer_shared.joblib",
+      "source_blob_sha": null,
+      "target_path": "backend/artifacts/tfidf_vectorizer_shared.joblib",
+      "action": "PENDING_PHASE_3",
+      "reason": "Real vectorizer is not tracked in either frozen tree; admit only after rights, lineage, approved SHA-256, and safe pre-deserialization verification.",
+      "phase": 3
+    },
+    {
+      "source_role": "external_assets",
+      "source_path": "external://artifacts/xgboost_model_config.json",
+      "source_blob_sha": null,
+      "target_path": "backend/artifacts/xgboost_model_config.json",
+      "action": "PENDING_PHASE_3",
+      "reason": "Real model configuration is not tracked in either frozen tree; admit only after rights, lineage, approved SHA-256, and consistency verification.",
+      "phase": 3
+    },
+    {
+      "source_role": "external_assets",
+      "source_path": "external://datasets/scraped-ecuador",
+      "source_blob_sha": null,
+      "target_path": null,
+      "action": "EXCLUDE_PRIVATE_DATASET",
+      "reason": "Private scraped Ecuador dataset must never enter public Git history; retain only privacy-safe provenance and aggregates.",
+      "phase": 1
+    }
+  ]
+}
