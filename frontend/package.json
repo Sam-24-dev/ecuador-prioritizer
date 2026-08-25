@@ -13,7 +13,8 @@
     "check:ui-copy": "node tests/check-ui-copy.mjs",
     "check:url-import": "node tests/check-url-import-api.mjs && node tests/check-url-import-batch.mjs && node tests/check-url-import-ui.mjs && node tests/check-url-import-ux.mjs",
     "check:e2e": "playwright test --config=playwright.config.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:security-headers": "node tests/check-security-headers.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",
