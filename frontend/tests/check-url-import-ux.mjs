@@ -34,4 +34,19 @@ assert.match(session, /displaySource\?: string/);
 assert.match(session, /displaySource:\s*draft\.displaySource/);
 assert.match(results, /item\.displaySource \?\? item\.source/);
 
+assert.match(dialog, /function safeHttpUrl\(value: string\): string \| null/);
+assert.match(dialog, /const finalUrl = preview \? safeHttpUrl\(preview\.final_url\) : null/);
+assert.match(dialog, /finalUrl \? <a[\s\S]*href=\{finalUrl\}[\s\S]*: <span[\s\S]*preview\.final_url/);
+
+const input = readSource('src', 'components', 'ui', 'input.tsx');
+const textarea = readSource('src', 'components', 'ui', 'textarea.tsx');
+assert.match(input, /aria-invalid=\{error \? 'true' : undefined\}/);
+assert.match(input, /aria-describedby=\{error \? errorId : undefined\}/);
+assert.match(input, /React\.useId\(\)/);
+assert.match(input, /const inputId = id \|\| `input-\$\{generatedId\}`/);
+assert.match(textarea, /aria-invalid=\{error \? 'true' : undefined\}/);
+assert.match(textarea, /aria-describedby=\{error \? errorId : undefined\}/);
+assert.match(textarea, /React\.useId\(\)/);
+assert.match(textarea, /const textareaId = id \|\| `textarea-\$\{generatedId\}`/);
+
 console.log('URL import UX contract check passed.');

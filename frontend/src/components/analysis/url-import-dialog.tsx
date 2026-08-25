@@ -18,6 +18,15 @@ function isAbortError(error: unknown): boolean {
   return error instanceof DOMException && error.name === 'AbortError';
 }
 
+function safeHttpUrl(value: string): string | null {
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === 'https:' || parsed.protocol === 'http:' ? parsed.href : null;
+  } catch {
+    return null;
+  }
+}
+
 export function UrlImportDialog({ isOpen, isLotFull, onClose, onConfirm }: UrlImportDialogProps) {
   const [url, setUrl] = useState('');
   const [urlError, setUrlError] = useState('');
@@ -115,6 +124,8 @@ export function UrlImportDialog({ isOpen, isLotFull, onClose, onConfirm }: UrlIm
     onClose();
   };
 
+  const finalUrl = preview ? safeHttpUrl(preview.final_url) : null;
+
   const confirmPreview = () => {
     if (!preview) return;
     if (onConfirm({ text, source: preview.domain.trim(), displaySource: url })) {
@@ -192,9 +203,9 @@ export function UrlImportDialog({ isOpen, isLotFull, onClose, onConfirm }: UrlIm
 
             <div className="space-y-2 text-sm">
               <span className="block text-xs font-semibold text-foreground">URL final</span>
-              <a className="flex items-start gap-2 break-all text-primary underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" href={preview.final_url} target="_blank" rel="noreferrer">
+              {finalUrl ? <a className="flex items-start gap-2 break-all text-primary underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" href={finalUrl} target="_blank" rel="noreferrer">
                 <ExternalLink className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />{preview.final_url}
-              </a>
+              </a> : <span className="block break-all text-muted-foreground">{preview.final_url}</span>}
             </div>
 
             <div>

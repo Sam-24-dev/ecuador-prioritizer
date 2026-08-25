@@ -11,7 +11,9 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, label, id, error, helperText, showCharCount, maxLength, value, onChange, ...props }, ref) => {
-    const textareaId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
+    const generatedId = React.useId();
+    const textareaId = id || `textarea-${generatedId}`;
+    const errorId = textareaId ? `${textareaId}-error` : undefined;
     const charCount = typeof value === 'string' ? value.length : 0;
 
     return (
@@ -29,14 +31,16 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             className
           )}
           ref={ref}
+          {...props}
+          aria-invalid={error ? 'true' : undefined}
+          aria-describedby={error ? errorId : undefined}
           value={value}
           onChange={onChange}
           maxLength={maxLength}
-          {...props}
         />
         <div className="flex justify-between text-xs">
           <div>
-            {error && <span className="font-medium text-destructive">{error}</span>}
+            {error && <span id={errorId} className="font-medium text-destructive">{error}</span>}
             {helperText && !error && <span className="text-muted-foreground">{helperText}</span>}
           </div>
           {showCharCount && maxLength && (
