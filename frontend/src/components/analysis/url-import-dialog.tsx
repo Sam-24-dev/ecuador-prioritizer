@@ -31,6 +31,7 @@ function urlExtractionErrorMessage(error: unknown): string {
     case 'response_too_large':
       return 'No fue posible extraer esta URL. Prueba con otro artículo público.';
     case 'rate_limited':
+    case 'client_timeout':
     case 'upstream_timeout':
     case 'upstream_unavailable':
     case 'service_unavailable':
