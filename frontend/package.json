@@ -15,7 +15,8 @@
     "check:e2e": "playwright test --config=playwright.config.mjs",
     "preview": "vite preview",
     "check:security-headers": "node tests/check-security-headers.mjs",
-    "check:seo-crawl-files": "node tests/check-seo-crawl-files.mjs"
+    "check:seo-crawl-files": "node tests/check-seo-crawl-files.mjs",
+    "check:favicon": "node tests/check-favicon.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",
