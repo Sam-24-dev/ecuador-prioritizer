@@ -15,6 +15,7 @@ assert.match(headers, /X-Frame-Options: DENY/);
 assert.match(headers, /X-Content-Type-Options: nosniff/);
 assert.match(headers, /Referrer-Policy: strict-origin-when-cross-origin/);
 assert.match(headers, /Permissions-Policy: geolocation=\(\), microphone=\(\), camera=\(\)/);
+assert.match(headers, /\/assets\/\*\r?\n  Cache-Control: public, max-age=31536000, immutable/);
 assert.doesNotMatch(headers, /Strict-Transport-Security/i, 'HSTS is intentionally out of scope');
 
 console.log('Cloudflare static security-header regression check passed.');
