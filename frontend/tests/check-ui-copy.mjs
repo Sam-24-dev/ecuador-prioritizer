@@ -7,6 +7,7 @@ const frontendDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '
 const readSource = (relativePath) => readFileSync(path.join(frontendDir, relativePath), 'utf8');
 const analizar = readSource('src/pages/analizar.tsx');
 const resultados = readSource('src/pages/resultados.tsx');
+const card = readSource('src/components/ui/card.tsx');
 const sidebar = readSource('src/components/layout/sidebar.tsx');
 const header = readSource('src/components/layout/header.tsx');
 
@@ -22,6 +23,11 @@ for (const copy of ['Analizar noticias', 'Resultados priorizados', 'Pegar varias
 }
 assert.match(sidebar, /BrandMark/);
 assert.match(resultados, /font-editorial/);
+assert.match(card, /<h2 ref=\{ref\}/);
+assert.doesNotMatch(card, /<h3 ref=\{ref\}/);
+for (const [name, page] of [['analysis', analizar], ['results', resultados]]) {
+  assert.ok(page.indexOf('<h1') < page.indexOf('<CardTitle'), `${name} must place CardTitle after its page h1`);
+}
 assert.ok(!header.includes('useTheme'));
 assert.ok(!existsSync(path.join(frontendDir, 'src/hooks/useTheme.ts')));
 
