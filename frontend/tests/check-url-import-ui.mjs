@@ -18,6 +18,13 @@ assert.match(dialog, /truncated/);
 assert.match(dialog, /Textarea/);
 assert.match(dialog, /role=["']alert["']/);
 assert.match(dialog, /Cancelar/);
+assert.match(dialog, /function urlExtractionErrorMessage\(error: unknown\)/);
+assert.match(dialog, /invalid_url/);
+assert.match(dialog, /rate_limited/);
+assert.match(dialog, /upstream_timeout/);
+assert.match(dialog, /No fue posible extraer esta URL/);
+assert.match(dialog, /Prueba con otro art[ií]culo p[uú]blico/);
+assert.match(dialog, /Intenta de nuevo m[aá]s tarde/);
 assert.doesNotMatch(dialog, /BatchDraftItem|useBatchSession|setItems|onAddToLot|addDraft/);
 
 assert.match(page, /UrlImportDialog/);
