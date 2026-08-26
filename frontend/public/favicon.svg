@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-label="Ecuador Prioritizer">
+  <g stroke="#29443d" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M5 6H15L25 24" />
+    <path d="M5 15H17L25 24" />
+    <path d="M5 24H25" />
+    <path d="M5 33H17L25 24" />
+    <path d="M5 42H15L25 24" />
+  </g>
+  <circle cx="25" cy="24" r="2.5" fill="#29443d" />
+</svg>
