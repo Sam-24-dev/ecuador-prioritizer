@@ -6,6 +6,7 @@ import type {
   UrlExtractionRequest,
   UrlExtractionResponse,
 } from '@/types/api';
+import { createClientTimeoutSignal } from './request-timeout';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
 
@@ -52,22 +53,43 @@ export async function extractUrl(
   request: UrlExtractionRequest,
   signal?: AbortSignal,
 ): Promise<UrlExtractionResponse> {
-  const response = await fetch(`${BASE_URL}/extractions/url`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(request),
-    signal,
-  });
-  return handleUrlExtractionResponse<UrlExtractionResponse>(response);
+  const timeout = createClientTimeoutSignal(signal);
+  try {
+    const response = await fetch(`${BASE_URL}/extractions/url`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(request),
+      signal: timeout.signal,
+    });
+    return handleUrlExtractionResponse<UrlExtractionResponse>(response);
+  } catch (error) {
+    if (timeout.didTimeout()) {
+      throw Object.assign(new Error('Client request timed out'), { code: 'client_timeout' });
+    }
+    throw error;
+  } finally {
+    timeout.cleanup();
+  }
 }
 
 export const httpApiClient: ApiClient = {
   async analyzeBatch(request: BatchAnalysisRequest): Promise<BatchAnalysisResponse> {
-    const response = await fetch(`${BASE_URL}/analysis/batch`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(request),
-    });
-    return handleResponse<BatchAnalysisResponse>(response);
+    const timeout = createClientTimeoutSignal();
+    try {
+      const response = await fetch(`${BASE_URL}/analysis/batch`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(request),
+        signal: timeout.signal,
+      });
+      return handleResponse<BatchAnalysisResponse>(response);
+    } catch (error) {
+      if (timeout.didTimeout()) {
+        throw Object.assign(new Error('Client request timed out'), { code: 'client_timeout' });
+      }
+      throw error;
+    } finally {
+      timeout.cleanup();
+    }
   },
 };
