@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ecuador-prioritizer.scaizapa.workers.dev/sitemap.xml
