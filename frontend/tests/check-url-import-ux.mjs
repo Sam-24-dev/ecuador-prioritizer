@@ -12,7 +12,7 @@ const results = readSource('src', 'pages', 'resultados.tsx');
 
 assert.doesNotMatch(dialog, /Usamos el backend configurado para validar y extraer el contenido\./);
 assert.doesNotMatch(dialog, /error instanceof Error/);
-assert.match(dialog, /No pudimos importar esta URL[\s\S]*Verifica que sea un enlace público/);
+assert.match(dialog, /No fue posible extraer esta URL[\s\S]*Verifica que sea un enlace p[uú]blico/);
 assert.match(dialog, /isLotFull:\s*boolean/);
 assert.match(dialog, /if \(isLotFull\)[\s\S]*?return;[\s\S]*?mutate\(/);
 assert.match(dialog, /onChange=\{\(event\) => startAnotherImport\(event\.target\.value\)\}/);

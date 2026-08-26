@@ -58,9 +58,9 @@ async function installDeterministicTransport(page, state) {
         }
         if (body.url === OFFLINE_URL) {
           await route.fulfill({
-            status: 503,
+            status: 502,
             contentType: 'application/json',
-            body: JSON.stringify({ error: { code: 'backend_unavailable', message: 'upstream timeout from provider' } }),
+            body: JSON.stringify({ error: { code: 'upstream_unavailable', message: 'upstream timeout from provider' } }),
           });
           return;
         }
@@ -208,7 +208,8 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     await page.getByRole('button', { name: 'Importar desde URL' }).click();
     await page.getByLabel('URL de la noticia').fill(INVALID_URL);
     await page.getByRole('button', { name: 'Extraer vista previa' }).click();
-    await expect(page.getByRole('alert')).toContainText('No pudimos importar esta URL.');
+    await expect(page.getByRole('alert')).toContainText('No fue posible extraer esta URL.');
+    await expect(page.getByRole('alert')).toContainText('Edita la dirección o prueba con otro artículo público.');
     await expect(page.getByRole('alert')).not.toContainText('validation failed');
 
     await page.getByLabel('URL de la noticia').fill('no-es-una-url');
@@ -216,7 +217,8 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     expect(await page.getByLabel('URL de la noticia').evaluate((input) => input.validity.typeMismatch)).toBe(true);
     await page.getByLabel('URL de la noticia').fill(OFFLINE_URL);
     await page.getByRole('button', { name: 'Extraer vista previa' }).click();
-    await expect(page.getByRole('alert')).toContainText('No pudimos importar esta URL.');
+    await expect(page.getByRole('alert')).toContainText('No fue posible extraer esta URL.');
+    await expect(page.getByRole('alert')).toContainText('Intenta de nuevo más tarde.');
     await expect(page.getByRole('alert')).not.toContainText('upstream timeout');
     await expectNoUnexpectedNetwork(state);
   });

@@ -18,6 +18,28 @@ function isAbortError(error: unknown): boolean {
   return error instanceof DOMException && error.name === 'AbortError';
 }
 
+function urlExtractionErrorMessage(error: unknown): string {
+  const code = typeof error === 'object' && error !== null && 'code' in error
+    ? (error as { code?: unknown }).code
+    : undefined;
+
+  switch (code) {
+    case 'invalid_url':
+    case 'extracted_text_too_short':
+    case 'unsupported_media_type':
+      return 'No fue posible extraer esta URL. Edita la dirección o prueba con otro artículo público.';
+    case 'response_too_large':
+      return 'No fue posible extraer esta URL. Prueba con otro artículo público.';
+    case 'rate_limited':
+    case 'upstream_timeout':
+    case 'upstream_unavailable':
+    case 'service_unavailable':
+      return 'No fue posible extraer esta URL. Intenta de nuevo más tarde.';
+    default:
+      return 'No fue posible extraer esta URL. Verifica que sea un enlace público de una noticia e inténtalo de nuevo.';
+  }
+}
+
 function safeHttpUrl(value: string): string | null {
   try {
     const parsed = new URL(value);
@@ -39,6 +61,7 @@ export function UrlImportDialog({ isOpen, isLotFull, onClose, onConfirm }: UrlIm
   const controllerRef = useRef<AbortController | null>(null);
   const extraction = useExtractUrl();
   const { isError, isPending, mutate, reset } = extraction;
+  const extractionError = extraction.error;
 
   const resetImportState = (nextUrl = '') => {
     controllerRef.current?.abort();
@@ -177,7 +200,7 @@ export function UrlImportDialog({ isOpen, isLotFull, onClose, onConfirm }: UrlIm
           <div role="alert" className="flex items-start gap-3 border-l-2 border-destructive bg-destructive/10 p-4 text-sm">
             <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-destructive" aria-hidden="true" />
             <div className="space-y-2">
-              <p>No pudimos importar esta URL. Verifica que sea un enlace público de una noticia e inténtalo de nuevo.</p>
+              <p>{urlExtractionErrorMessage(extractionError)}</p>
               <Button type="button" variant="outline" size="sm" onClick={requestExtraction}>Reintentar extracción</Button>
             </div>
           </div>

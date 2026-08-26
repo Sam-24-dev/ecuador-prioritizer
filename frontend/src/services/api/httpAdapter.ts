@@ -32,15 +32,17 @@ async function handleResponse<T>(response: Response): Promise<T> {
 async function handleUrlExtractionResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
     let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+    let errorCode: string | undefined;
     try {
       const errorBody = await response.json() as Partial<UrlExtractionErrorResponse>;
+      errorCode = errorBody.error?.code;
       if (errorBody.error?.message) {
         errorMessage = errorBody.error.message;
       }
     } catch {
       // Ignore a non-JSON error response.
     }
-    throw new Error(errorMessage);
+    throw Object.assign(new Error(errorMessage), { code: errorCode });
   }
   return response.json() as Promise<T>;
 }
