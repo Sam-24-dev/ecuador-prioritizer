@@ -11,6 +11,7 @@ A public, anonymous tool that helps Ecuadorian fact-checkers **prioritize** inco
 - Public, stateless, session-only prioritization interface.
 - React/Vite frontend; FastAPI/Python scoring API.
 - TF-IDF + FEDA + XGBoost model pipeline.
+- **Límite de alcance del modelo:** cada ítem admite hasta **2.000 caracteres**. En una evaluación offline controlada, usando el pipeline oficial fijo (XGBoost/TF-IDF/FEDA) sobre el holdout congelado de 870 ítems, 2.000 caracteres rindieron mejor que 5.000 y 10.000: macro-F1/accuracy de **0,9428/0,9586**, frente a **0,9313/0,9517** y **0,9296/0,9506**, respectivamente. Este es un límite de producto/modelo, no una garantía de verificación factual.
 - No accounts, editorial workflow, cases, comments, database, or definitive verdicts.
 - Public release includes approved code only until a separate artifact-release gate approves any additional material; the private bundle/assets/data are excluded.
 
