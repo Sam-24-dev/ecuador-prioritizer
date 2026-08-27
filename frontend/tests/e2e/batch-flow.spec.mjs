@@ -52,6 +52,11 @@ async function installDeterministicTransport(page, state) {
           await route.fulfill({
             status: 422,
             contentType: 'application/json',
+            headers: {
+              'Access-Control-Allow-Origin': 'http://127.0.0.1:4173',
+              'Access-Control-Expose-Headers': 'X-Request-ID',
+              'X-Request-ID': 'fixture-invalid-123',
+            },
             body: JSON.stringify({ error: { code: 'invalid_url', message: 'validation failed: URL must use http or https' } }),
           });
           return;
@@ -210,6 +215,7 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     await page.getByRole('button', { name: 'Extraer vista previa' }).click();
     await expect(page.getByRole('alert')).toContainText('No fue posible extraer esta URL.');
     await expect(page.getByRole('alert')).toContainText('Edita la dirección o prueba con otro artículo público.');
+    await expect(page.getByRole('alert')).toContainText('ID de referencia: fixture-invalid-123');
     await expect(page.getByRole('alert')).not.toContainText('validation failed');
 
     await page.getByLabel('URL de la noticia').fill('no-es-una-url');
@@ -223,3 +229,4 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     await expectNoUnexpectedNetwork(state);
   });
 });
+
