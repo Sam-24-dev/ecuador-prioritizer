@@ -35,6 +35,7 @@ See [Architecture](docs/ARCHITECTURE.md) for boundaries and [Free deployment](do
 - [Publication policy](docs/PUBLICATION_POLICY.md)
 - [Free deployment](docs/FREE_DEPLOYMENT.md)
 - [Decision log](docs/DECISION_LOG.md)
+- [P7E operations runbook](docs/OPERATIONS_RUNBOOK.md)
 
 ## Materialization and later gates
 
