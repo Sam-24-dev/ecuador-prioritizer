@@ -16,7 +16,7 @@ assert.match(adapter, /export async function extractUrl\(\s*request:\s*UrlExtrac
 assert.match(adapter, /fetch\(`\$\{BASE_URL\}\/extractions\/url`,\s*\{[\s\S]*?method:\s*'POST',[\s\S]*?body:\s*JSON\.stringify\(request\),[\s\S]*?signal,/s);
 assert.match(adapter, /errorBody\.error\.message/);
 assert.match(adapter, /errorCode\s*=\s*errorBody\.error\?\.code/);
-assert.match(adapter, /Object\.assign\(new Error\(errorMessage\),\s*\{\s*code:\s*errorCode\s*\}\)/);
+assert.match(adapter, /Object\.assign\(new Error\(errorMessage\),\s*\{\s*code:\s*errorCode,[\s\S]*?supportReferenceId:\s*getSupportReferenceId\(response\)/);
 assert.doesNotMatch(adapter, /fetch\(request\.url/);
 
 const hooks = readSource('src', 'hooks', 'useApiHooks.ts');

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { getSupportReferenceIdFromError } from '@/services/api/support-reference-id';
 import type { UrlExtractionResponse } from '@/types/api';
 
 interface UrlImportDialogProps {
@@ -149,6 +150,7 @@ export function UrlImportDialog({ isOpen, isLotFull, onClose, onConfirm }: UrlIm
   };
 
   const finalUrl = preview ? safeHttpUrl(preview.final_url) : null;
+  const supportReferenceId = getSupportReferenceIdFromError(extractionError);
 
   const confirmPreview = () => {
     if (!preview) return;
@@ -202,6 +204,9 @@ export function UrlImportDialog({ isOpen, isLotFull, onClose, onConfirm }: UrlIm
             <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-destructive" aria-hidden="true" />
             <div className="space-y-2">
               <p>{urlExtractionErrorMessage(extractionError)}</p>
+              {supportReferenceId && (
+                <p>ID de referencia: <code className="font-mono select-all">{supportReferenceId}</code></p>
+              )}
               <Button type="button" variant="outline" size="sm" onClick={requestExtraction}>Reintentar extracción</Button>
             </div>
           </div>

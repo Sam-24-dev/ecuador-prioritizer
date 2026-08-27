@@ -17,6 +17,7 @@ import {
   validateNewsBlocks,
 } from '@/lib/news-ingestion';
 import { useAnalyzeBatch } from '@/hooks/useApiHooks';
+import { getSupportReferenceIdFromError } from '@/services/api/support-reference-id';
 import { type BatchDraftItem, useBatchSession } from '@/session/batch-session';
 import type { BatchAnalysisResponse } from '@/types/api';
 
@@ -65,6 +66,7 @@ export function AnalizarPage() {
   const [urlImportOpen, setUrlImportOpen] = useState(false);
   const [duplicateIds, setDuplicateIds] = useState<string[]>([]);
   const analyzeMutation = useAnalyzeBatch();
+  const supportReferenceId = getSupportReferenceIdFromError(analyzeMutation.error);
 
   const updateItem = (id: string, update: Partial<BatchDraftItem>) => {
     analyzeMutation.reset();
@@ -238,7 +240,7 @@ export function AnalizarPage() {
           </div>
           {feedback && <p role="status" aria-live="polite" className="border-l-2 border-terracotta bg-muted px-3 py-2 text-sm leading-relaxed text-foreground">{feedback}</p>}
           {duplicateIds.length > 0 && <div role="alert" className="flex flex-wrap items-center gap-3 border-l-2 border-terracotta bg-muted p-4 text-sm"><p className="basis-full">Elige qué hacer con las noticias duplicadas.</p><Button type="button" variant="outline" size="sm" onClick={removeDuplicates}>Quitar noticias duplicadas</Button><Button type="button" size="sm" onClick={keepDuplicatesAndAnalyze} disabled={analyzeMutation.isPending}>Mantener duplicadas y analizar</Button></div>}
-          {analyzeMutation.isError && <div role="alert" className="flex gap-3 border-l-2 border-destructive bg-destructive/10 p-4 text-sm"><AlertTriangle className="h-5 w-5 shrink-0 text-destructive" aria-hidden="true" /><p>No fue posible analizar las noticias en este momento. Tus noticias siguen disponibles para editar e intentar de nuevo.</p></div>}
+          {analyzeMutation.isError && <div role="alert" className="flex gap-3 border-l-2 border-destructive bg-destructive/10 p-4 text-sm"><AlertTriangle className="h-5 w-5 shrink-0 text-destructive" aria-hidden="true" /><div><p>No fue posible analizar las noticias en este momento. Tus noticias siguen disponibles para editar e intentar de nuevo.</p>{supportReferenceId && <p className="mt-2">ID de referencia: <code className="font-mono select-all">{supportReferenceId}</code></p>}</div></div>}
           {!items.length ? <div className="border border-dashed border-border px-5 py-12 text-center"><FileText className="mx-auto mb-4 h-7 w-7 text-primary" aria-hidden="true" /><p className="font-editorial text-xl font-semibold">Todavía no agregaste noticias</p><p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">Agrega una noticia para comenzar la revisión.</p></div> : (
             <div className="space-y-5">
               {items.map((item, index) => {

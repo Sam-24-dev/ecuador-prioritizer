@@ -7,6 +7,7 @@ import type {
   UrlExtractionResponse,
 } from '@/types/api';
 import { createClientTimeoutSignal } from './request-timeout';
+import { getSupportReferenceId } from './support-reference-id';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
 
@@ -25,7 +26,9 @@ async function handleResponse<T>(response: Response): Promise<T> {
     } catch {
       // Ignore a non-JSON error response.
     }
-    throw new Error(errorMessage);
+    throw Object.assign(new Error(errorMessage), {
+      supportReferenceId: getSupportReferenceId(response),
+    });
   }
   return response.json() as Promise<T>;
 }
@@ -43,7 +46,10 @@ async function handleUrlExtractionResponse<T>(response: Response): Promise<T> {
     } catch {
       // Ignore a non-JSON error response.
     }
-    throw Object.assign(new Error(errorMessage), { code: errorCode });
+    throw Object.assign(new Error(errorMessage), {
+      code: errorCode,
+      supportReferenceId: getSupportReferenceId(response),
+    });
   }
   return response.json() as Promise<T>;
 }
