@@ -111,6 +111,29 @@ async function addManualArticle(page, text = MANUAL_ARTICLE) {
 }
 
 test.describe('Phase 11 deterministic batch journeys', () => {
+  test('URL import dialog restores focus to its trigger after Escape and close', async ({ page }) => {
+    const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
+    await installDeterministicTransport(page, state);
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: 'Importar desde URL' });
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(page.locator('#news-file-import')).toBeFocused();
+
+    await trigger.focus();
+    await trigger.press('Enter');
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.getByRole('dialog').getByRole('button', { name: /Cerrar/ }).click();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+  });
+
   test('URL preview maps to a lot, returns XGBoost-shaped results, and exports CSV', async ({ page }) => {
     const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
     await installDeterministicTransport(page, state);

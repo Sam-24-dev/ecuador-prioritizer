@@ -11,6 +11,7 @@ import type { UrlExtractionResponse } from '@/types/api';
 interface UrlImportDialogProps {
   isOpen: boolean;
   isLotFull: boolean;
+  onCloseAutoFocus?: (event: Event) => void;
   onClose: () => void;
   onConfirm: (draft: { text: string; source: string; displaySource: string }) => boolean;
 }
@@ -51,7 +52,7 @@ function safeHttpUrl(value: string): string | null {
   }
 }
 
-export function UrlImportDialog({ isOpen, isLotFull, onClose, onConfirm }: UrlImportDialogProps) {
+export function UrlImportDialog({ isOpen, isLotFull, onCloseAutoFocus, onClose, onConfirm }: UrlImportDialogProps) {
   const [url, setUrl] = useState('');
   const [urlError, setUrlError] = useState('');
   const [preview, setPreview] = useState<UrlExtractionResponse | null>(null);
@@ -166,6 +167,7 @@ export function UrlImportDialog({ isOpen, isLotFull, onClose, onConfirm }: UrlIm
     <Dialog
       isOpen={isOpen}
       onClose={handleClose}
+      onCloseAutoFocus={onCloseAutoFocus}
       title="Importar desde URL"
       description="Extrae una noticia para revisarla aquí y agregarla al lote cuando la confirmes."
       className="max-h-[calc(100vh-2rem)] max-w-3xl overflow-y-auto"
