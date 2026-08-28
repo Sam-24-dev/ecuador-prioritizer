@@ -54,7 +54,7 @@ export function Sidebar({ isOpenMobile = false, onCloseMobile }: SidebarProps) {
     <div className="flex items-start gap-3 border-b border-border pb-6">
       <BrandMark decorative className="mt-0.5 h-9 w-9 text-primary" />
       <div className="min-w-0">
-        <h1 className="font-editorial text-xl font-semibold leading-tight text-foreground" translate="no">Ecuador Prioritizer</h1>
+        <span className="font-editorial text-xl font-semibold leading-tight text-foreground" translate="no">Ecuador Prioritizer</span>
         <p className="mt-1 text-xs leading-relaxed text-muted-foreground">Análisis y priorización de noticias</p>
       </div>
     </div>
