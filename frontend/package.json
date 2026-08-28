@@ -11,6 +11,7 @@
     "check:csv-export": "node tests/check-csv-export.mjs",
     "check:txt-import": "node tests/check-txt-import.mjs",
     "check:ui-copy": "node tests/check-ui-copy.mjs",
+    "check:wait-context": "node tests/check-wait-context.mjs",
     "check:url-import": "node tests/check-url-import-api.mjs && node tests/check-url-import-batch.mjs && node tests/check-url-import-ui.mjs && node tests/check-url-import-ux.mjs",
     "check:client-timeout": "node --experimental-strip-types tests/client-timeout.test.ts && node tests/check-client-timeout.mjs",
     "check:support-reference-id": "node --experimental-strip-types tests/support-reference-id.test.ts",

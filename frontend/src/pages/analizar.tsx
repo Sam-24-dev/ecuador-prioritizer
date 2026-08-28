@@ -257,7 +257,7 @@ export function AnalizarPage() {
           {items.length > 0 && <p className="text-sm text-muted-foreground">Puedes agregar otra noticia o analizar las noticias ya agregadas.</p>}
           {items.length > 0 && <p className="border-l-2 border-terracotta bg-muted px-3 py-2 text-sm leading-relaxed text-muted-foreground">Los resultados del lote anterior siguen disponibles en Resultados priorizados. Al analizar este lote, se mostrarán los resultados del nuevo lote.</p>}
           <div className="flex flex-col-reverse justify-between gap-3 border-t border-border pt-5 sm:flex-row sm:items-center"><Button type="button" variant="ghost" onClick={() => { setItems([]); setFeedback(''); setDuplicateIds([]); }} disabled={!items.length || analyzeMutation.isPending}>Quitar todas las noticias</Button><Button type="button" onClick={handleAnalyze} isLoading={analyzeMutation.isPending} disabled={!items.length || analyzeMutation.isPending}>{analyzeMutation.isPending ? 'Analizando noticias…' : items.length === 1 ? 'Analizar 1 noticia' : `Analizar ${items.length} noticias`}</Button></div>
-          {analyzeMutation.isPending && <p role="status" aria-live="polite" className="text-sm text-muted-foreground">Analizando las noticias preparadas…</p>}
+          {analyzeMutation.isPending && <p role="status" aria-live="polite" className="text-sm text-muted-foreground">Analizando las noticias preparadas…<span className="block">Puede tardar; tus noticias se conservan si falla.</span></p>}
         </CardContent>
       </Card>
 

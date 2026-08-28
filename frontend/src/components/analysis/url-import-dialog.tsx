@@ -201,6 +201,8 @@ export function UrlImportDialog({ isOpen, isLotFull, onCloseAutoFocus, onClose, 
           </div>
         </form>
 
+        {isPending && <p role="status" aria-live="polite" className="text-sm text-muted-foreground">Puede tardar; tus noticias se conservan si falla.</p>}
+
         {isError && !isPending && (
           <div role="alert" className="flex items-start gap-3 border-l-2 border-destructive bg-destructive/10 p-4 text-sm">
             <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-destructive" aria-hidden="true" />
