@@ -1,0 +1,56 @@
+name: Frontend CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: frontend
+
+jobs:
+  frontend-ci:
+    name: frontend-ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22.18.0
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Check CSV export
+        run: npm run check:csv-export
+      - name: Check TXT import
+        run: npm run check:txt-import
+      - name: Check UI copy
+        run: npm run check:ui-copy
+      - name: Check wait context
+        run: npm run check:wait-context
+      - name: Check URL import
+        run: npm run check:url-import
+      - name: Check client timeout
+        run: npm run check:client-timeout
+      - name: Check support reference ID
+        run: npm run check:support-reference-id
+      - name: Check security headers
+        run: npm run check:security-headers
+      - name: Check SEO crawl files
+        run: npm run check:seo-crawl-files
+      - name: Check favicon
+        run: npm run check:favicon
+      - name: Build
+        run: npm run build
