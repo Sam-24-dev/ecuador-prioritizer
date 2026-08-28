@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppShell } from '@/components/layout/app-shell';
 import { AnalizarPage } from '@/pages/analizar';
 import { ResultadosPage } from '@/pages/resultados';
+import { TransparenciaPage } from '@/pages/transparencia';
 import { BatchSessionProvider } from '@/session/batch-session';
 
 const queryClient = new QueryClient({
@@ -17,6 +18,7 @@ export function App() {
           <Routes>
             <Route path="/" element={<AppShell><AnalizarPage /></AppShell>} />
             <Route path="/resultados" element={<AppShell><ResultadosPage /></AppShell>} />
+            <Route path="/transparencia" element={<AppShell><TransparenciaPage /></AppShell>} />
             <Route path="/analizar" element={<Navigate to="/" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
