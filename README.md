@@ -1,6 +1,12 @@
-﻿# Ecuador Prioritizer
+# Ecuador Prioritizer
 
-A public, anonymous tool that helps Ecuadorian fact-checkers **prioritize** incoming news and claims for human review. It ranks signals; people decide what to investigate and what to publish.
+A public, anonymous tool that helps Ecuadorian fact-checkers **prioritize** incoming news and claims for human review. It ranks signals; people decide what to investigate and what to publish. It does not verify facts or issue definitive verdicts.
+
+## Live demo
+
+Try the deployed frontend at [ecuador-prioritizer.scaizapa.workers.dev](https://ecuador-prioritizer.scaizapa.workers.dev/).
+
+The frontend is hosted on Cloudflare Workers. Its FastAPI backend runs as a private Render service for this application; it is not a public third-party API endpoint or supported integration.
 
 ## Status
 
@@ -15,14 +21,14 @@ A public, anonymous tool that helps Ecuadorian fact-checkers **prioritize** inco
 - No accounts, editorial workflow, cases, comments, database, or definitive verdicts.
 - Public release includes approved code only until a separate artifact-release gate approves any additional material; the private bundle/assets/data are excluded.
 
-## Target architecture
+## Current deployment boundary
 
 ```text
-Browser → Cloudflare Pages → OCI-hosted FastAPI/XGBoost API
-                  └──── optional Cloudflare Worker gateway/rate limit
+Public frontend: Cloudflare Workers
+Application backend: private Render FastAPI service
 ```
 
-See [Architecture](docs/ARCHITECTURE.md) for boundaries and [Free deployment](docs/FREE_DEPLOYMENT.md) for operating assumptions. Final hosting remains subject to a later decision gate.
+See [Architecture](docs/ARCHITECTURE.md) for product boundaries. This README records the current public runtime; it is not a claim of production readiness or a public API commitment.
 
 ## Navigation
 
