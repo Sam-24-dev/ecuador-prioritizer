@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { ClipboardList, FilePlus2 } from 'lucide-react';
+import { ClipboardList, FilePlus2, Info } from 'lucide-react';
 import { Drawer } from '@/components/ui/drawer';
 import { BrandMark } from '@/components/brand/brand-mark';
 import { cn } from '@/lib/utils';
@@ -16,6 +16,7 @@ export function Sidebar({ isOpenMobile = false, onCloseMobile }: SidebarProps) {
   const navItems = [
     { label: 'Analizar noticias', path: '/', icon: FilePlus2, enabled: true },
     { label: 'Resultados priorizados', path: '/resultados', icon: ClipboardList, enabled: resultsAvailable },
+    { label: 'Transparencia y contacto', path: '/transparencia', icon: Info, enabled: true },
   ];
 
   const renderLinks = (descriptionId: string, onItemClick?: () => void) => (
