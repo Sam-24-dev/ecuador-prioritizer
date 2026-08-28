@@ -172,6 +172,7 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     const downloadPromise = page.waitForEvent('download');
     await page.getByRole('button', { name: 'Descargar todos los resultados (CSV)' }).click();
     const download = await downloadPromise;
+    await expect(page.getByRole('status').filter({ hasText: 'La exportación CSV se inició.' })).toBeVisible();
     expect(download.suggestedFilename()).toBe('ecuador-prioritizer-resultados.csv');
     const csv = await readDownload(download);
     expect(csv).toContain('"orden","clase_preliminar","puntaje_falso","p_verdadero","fuente","texto"');
