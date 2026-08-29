@@ -95,6 +95,7 @@ export function AnalizarPage() {
   const removeDraft = (id: string) => {
     setDuplicateIds((current) => current.filter((duplicateId) => duplicateId !== id));
     setItems((current) => current.filter((item) => item.id !== id));
+    setFeedback('');
   };
 
   const updatePreview = (id: string, update: Partial<PreviewItem>) => setPreview((current) => current.map((item) => item.id === id ? { ...item, ...update } : item));
