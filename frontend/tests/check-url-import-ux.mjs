@@ -12,7 +12,7 @@ const results = readSource('src', 'pages', 'resultados.tsx');
 
 assert.doesNotMatch(dialog, /Usamos el backend configurado para validar y extraer el contenido\./);
 assert.doesNotMatch(dialog, /error instanceof Error/);
-assert.match(dialog, /No fue posible extraer esta URL[\s\S]*Verifica que sea un enlace p[uú]blico/);
+assert.match(dialog, /No pudimos extraer el contenido de este enlace[\s\S]*Pegar el texto/);
 assert.match(dialog, /isLotFull:\s*boolean/);
 assert.match(dialog, /if \(isLotFull\)[\s\S]*?return;[\s\S]*?mutate\(/);
 assert.match(dialog, /onChange=\{\(event\) => startAnotherImport\(event\.target\.value\)\}/);
@@ -21,6 +21,8 @@ assert.match(dialog, /Noticia agregada al lote\. Puedes importar otra URL\./);
 assert.match(dialog, /Cerrar importación/);
 assert.match(dialog, /displaySource:\s*url/);
 assert.match(dialog, /onConfirm\s*:\s*\(draft:\s*\{\s*text:\s*string;\s*source:\s*string;\s*displaySource:\s*string\s*}\)/s);
+
+assert.match(dialog, /onPasteText/);
 
 assert.match(page, /displaySource:\s*draft\.displaySource/);
 assert.match(page, /isLotFull=\{items\.length >= MAX_NEWS_ITEMS\}/);

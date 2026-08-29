@@ -23,7 +23,10 @@ assert.match(dialog, /invalid_url/);
 assert.match(dialog, /rate_limited/);
 assert.match(dialog, /upstream_timeout/);
 assert.match(dialog, /No fue posible extraer esta URL/);
-assert.match(dialog, /Prueba con otro art[ií]culo p[uú]blico/);
+assert.match(dialog, /prueba con otro art[ií]culo p[uú]blico/);
+assert.match(dialog, /No pudimos extraer el contenido de este enlace/);
+assert.match(dialog, /Probar otro enlace/);
+assert.match(dialog, /Pegar el texto/);
 assert.match(dialog, /Intenta de nuevo m[aá]s tarde/);
 assert.doesNotMatch(dialog, /BatchDraftItem|useBatchSession|setItems|onAddToLot|addDraft/);
 

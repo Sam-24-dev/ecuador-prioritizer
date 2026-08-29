@@ -80,6 +80,18 @@ export function AnalizarPage() {
     setFeedback('');
     setItems((current) => [...current, createDraft()]);
   };
+
+  const handlePasteTextFallback = () => {
+    if (items.length >= MAX_NEWS_ITEMS) {
+      setFeedback('Ya alcanzaste el máximo de 10 noticias. Quita una noticia antes de pegar el texto.');
+      return;
+    }
+    const draft = createDraft();
+    setFeedback('Se agregó una noticia vacía para que pegues el texto.');
+    setItems((current) => current.length >= MAX_NEWS_ITEMS ? current : [...current, draft]);
+    setTimeout(() => document.getElementById(`batch-text-${draft.id}`)?.focus(), 50);
+  };
+
   const removeDraft = (id: string) => {
     setDuplicateIds((current) => current.filter((duplicateId) => duplicateId !== id));
     setItems((current) => current.filter((item) => item.id !== id));
@@ -275,7 +287,7 @@ export function AnalizarPage() {
       <Dialog isOpen={previewOpen} onClose={() => setPreviewOpen(false)} onCloseAutoFocus={(event) => { if (pasteTriggerRef.current) { event.preventDefault(); pasteTriggerRef.current.focus(); } }} title={previewTitle} className="max-w-3xl max-h-[calc(100vh-2rem)] overflow-y-auto">
         {previewTitle === 'Pega varias noticias' && !preview.length ? <div className="space-y-4"><p className="text-sm leading-relaxed text-muted-foreground">Separa cada noticia con <code className="font-mono text-foreground">{NEWS_SEPARATOR}</code> sola en una línea. No vamos a dividir el texto por párrafos ni titulares.</p><Textarea id="multi-news-paste" label="Noticias para revisar" value={pasteText} onChange={(event) => setPasteText(event.target.value)} error={pasteFeedback || undefined} className="min-h-56" placeholder={`Primera noticia completa\n${NEWS_SEPARATOR}\nSegunda noticia completa`} /><Button type="button" onClick={reviewPastedNews}>Revisar noticias</Button></div> : <div className="space-y-5"><div role="status" aria-live="polite" className="border-l-2 border-terracotta bg-muted px-3 py-2 text-sm leading-relaxed">{previewFeedback}</div>{previewOverCapacity && <p role="alert" className="text-sm text-destructive">Hay {items.length + preview.length} noticias en total. Quita las necesarias de esta vista previa hasta llegar a 10 o menos.</p>}{previewValidation.emptyIndexes.length > 0 && <p role="alert" className="text-sm text-destructive">Hay noticias vacías. Corrige o quita las noticias vacías antes de agregarlas.</p>}<div className="space-y-5">{preview.map((item, index) => <article key={item.id} className="border-t border-border pt-5 first:border-t-0 first:pt-0"><div className="mb-3 flex flex-wrap items-center justify-between gap-3"><div><h3 className="font-editorial text-lg font-semibold">Noticia detectada {index + 1}</h3>{item.fileName && <p className="text-xs text-muted-foreground break-all">Archivo: {item.fileName}</p>}</div><Button type="button" size="sm" variant="ghost" onClick={() => removePreview(item.id)} aria-label={`Quitar noticia detectada ${index + 1}`}><Trash2 className="h-4 w-4" aria-hidden="true" />Quitar</Button></div><div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_14rem]"><div><Textarea id={`preview-text-${item.id}`} label="Contenido de la noticia" value={item.text} onChange={(event) => updatePreview(item.id, { text: event.target.value })} error={newsLengthError(item.text) ?? undefined} className="min-h-36" placeholder="Pega aquí el contenido completo de una noticia." /><p className="mt-1 text-right font-mono text-[11px] text-muted-foreground">{item.text.length} / {MAX_NEWS_LENGTH}</p></div><Input id={`preview-source-${item.id}`} label="Fuente (opcional)" value={item.source} onChange={(event) => updatePreview(item.id, { source: event.target.value })} error={sourceError(item.source) ?? undefined} placeholder="Medio, archivo o URL…" /></div></article>)}</div><div className="flex flex-wrap justify-end gap-3 border-t border-border pt-5"><Button type="button" variant="outline" onClick={() => setPreviewOpen(false)}>Seguir corrigiendo después</Button><Button type="button" variant="ghost" onClick={discardPreview}>Descartar vista previa</Button><Button type="button" onClick={confirmPreview} disabled={!preview.length}>Confirmar y agregar noticias</Button></div></div>}
       </Dialog>
-      <UrlImportDialog isOpen={urlImportOpen} isLotFull={items.length >= MAX_NEWS_ITEMS} onCloseAutoFocus={(event) => { if (urlImportTriggerRef.current) { event.preventDefault(); urlImportTriggerRef.current.focus(); } }} onClose={() => setUrlImportOpen(false)} onConfirm={handleUrlPreviewConfirmed} />
+      <UrlImportDialog isOpen={urlImportOpen} isLotFull={items.length >= MAX_NEWS_ITEMS} onCloseAutoFocus={(event) => { if (urlImportTriggerRef.current) { event.preventDefault(); urlImportTriggerRef.current.focus(); } }} onClose={() => setUrlImportOpen(false)} onConfirm={handleUrlPreviewConfirmed} onPasteText={handlePasteTextFallback} />
     </div>
   );
 }
