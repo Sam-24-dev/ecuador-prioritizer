@@ -1,46 +1,39 @@
-﻿# Free deployment
+# Free deployment
 
-## Target
+## Current boundary
 
-Use Cloudflare Pages for the React/Vite frontend and an OCI Always Free compute instance for the FastAPI/XGBoost API. A Cloudflare Worker is optional and must remain limited to gateway/rate-limit duties.
+The confirmed public frontend is the Cloudflare Worker at <https://ecuador-prioritizer.scaizapa.workers.dev/>. The FastAPI backend is a private Render service for this application. This page records the boundary and planning guardrails; it does not claim the current provider plan, active version, deploy source, quota usage, alert settings, or production readiness.
 
-## Zero-surprise operating rule
+For current operational procedures and evidence limits, use the [Operations runbook](OPERATIONS_RUNBOOK.md).
 
-Use only free-tier resources. Do not enable paid upgrades, usage-based overages, automatic scaling to paid resources, paid add-ons, or unreviewed marketplace services. Free tiers have limits and no SLA; verify current terms, quotas, regions, eligibility, and account settings before provisioning.
+## Operating guardrails
 
-## Components
+- Verify current provider terms, quotas, eligibility, account state, and billing settings before provisioning or changing a service.
+- Do not enable paid upgrades, usage-based overages, automatic scaling to paid resources, paid add-ons, or unreviewed marketplace services without an explicit owner decision.
+- Keep deployment evidence, credentials, private runtime details, model/data bundles, and logs out of this public repository.
+- Treat availability as best effort. These docs claim no continuous monitoring and no SLA; use the runbook's bounded checks and provider-native rollback paths when an owner performs an operational review.
+- A provider dashboard, deploy version, plan, quota, or alert configuration must be rechecked at the time of an operational action rather than inferred from historical documentation.
 
-| Component | Target role | Guardrail |
+## Historical planning context (superseded)
+
+The original low-cost deployment plan considered the following arrangement:
+
+| Historical option | Historical role | Current status |
 |---|---|---|
-| Cloudflare Pages | Static frontend deployment | Confirm project settings and build output before publishing. |
-| Optional Cloudflare Worker | Gateway/rate-limit layer only | Add only when traffic/abuse evidence requires it; keep usage inside verified free allowance. |
-| OCI Always Free compute | FastAPI/XGBoost API | Confirm eligible shape, region capacity, network rules, and account billing state before provisioning. |
-| Local/private backup | Recovery for deployment configuration and public release manifests | Keep private data and secrets out of backups intended for public sharing. |
+| Cloudflare Pages | Static frontend hosting | Superseded by the current Cloudflare Worker frontend |
+| OCI Always Free compute | FastAPI/scoring API hosting | Superseded by the current private Render backend |
+| Cloudflare Worker gateway | Optional gateway or rate-limit layer | The current Worker is the public frontend; do not infer a separate gateway deployment from this page |
+| Local/private backup | Recovery for configuration and approved release evidence | Still a general safety practice; keep private material private |
 
-## Known constraints
+The Pages/OCI plan is retained to explain earlier migration decisions. It is historical context, not an authorization or runbook for provisioning those providers.
 
-- Provider terms, quotas, region capacity, and free eligibility can change. Record verification evidence at provisioning time: **[VERIFY BEFORE DEPLOYMENT]**.
-- No free provider SLA is assumed. Plan a clear degraded/unavailable response.
-- OCI capacity may not be immediately available in a chosen region.
-- Free infrastructure still needs monitoring of account notices, quotas, health, and resource state.
+Other providers considered during planning (including Vercel, Fly, Supabase, and managed databases) were not selected because they added operational surface without a demonstrated requirement. Reconsidering one requires fresh cost, security, privacy, and operational evidence.
 
-## Deliberately discarded for the target design
+## Constraints and rollback
 
-| Option | Why not target |
-|---|---|
-| Vercel | Existing/migration context only; not the selected frontend target. |
-| Fly | Existing/migration context only; not the selected API target. |
-| Supabase | No persistence requirement; adds an unnecessary database/service. |
-| Managed database | Stateless, session-only product does not need one. |
+- Free or low-cost provider terms, quotas, region capacity, and eligibility can change.
+- No provider SLA is assumed for this project.
+- Keep a private record of the release and deployment evidence needed for rollback; do not publish private identifiers or raw logs.
+- Before any provider change, confirm the target boundary and rollback path with current provider evidence.
 
-## Operations and backup
-
-- Keep infrastructure configuration minimal and documented.
-- Record the deployed frontend/API revision and public model-artifact identity for each release.
-- Back up release manifests, deployment configuration, and approved artifact hashes privately.
-- Test a rollback to a last known-good release before relying on it.
-- Review provider dashboards and notices on a documented cadence: **[DEFINE BEFORE CUTOVER]**.
-
-## Provisioning gate
-
-Do not deploy until [Migration plan](MIGRATION_PLAN.md) Phase 5 gates, [Publication policy](PUBLICATION_POLICY.md) checks, and provider free-tier verification are complete.
+The [Operations runbook](OPERATIONS_RUNBOOK.md) contains the current low-volume checks, evidence template, and provider-native rollback references. This documentation-only change does not require a frontend deployment.

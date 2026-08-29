@@ -1,66 +1,68 @@
-﻿# Architecture
+# Architecture
 
-## Decision
+## Current boundary
 
-Use one public web client and one stateless scoring API. Keep the model pipeline simple: TF-IDF → FEDA → XGBoost. No database is needed for the target product.
+The public product is a stateless web client backed by a private scoring API. The confirmed public frontend is the Cloudflare Worker at <https://ecuador-prioritizer.scaizapa.workers.dev/>. The FastAPI backend is a private Render service for this application; it is not documented here as a public API or integration.
 
 ```mermaid
 flowchart LR
-    U[Anonymous browser] --> P[Cloudflare Pages\nReact/Vite]
-    P -->|Direct path when Worker is off| A[FastAPI/Python\nOCI Always Free]
-    P -->|Optional gateway path| W[Cloudflare Worker\nGateway and rate limit]
-    W -->|When enabled| A
-    A --> M[TF-IDF + FEDA + XGBoost\nRelease-gated artifacts]
-    A -->|ranked, non-definitive result| P
+    U[Anonymous browser] --> W[Cloudflare Worker frontend]
+    W --> A[Private Render FastAPI backend]
+    A --> M[Scoring pipeline]
+    A --> W
 
-    D[Private scraped Ecuador dataset] -. provenance only; never deployed or published .-> R[Private reproduction environment]
-    L[MIT-licensed public dataset] --> R
+    D[Private scraped Ecuador dataset] -.-> R[Private reproduction environment]
     R --> M
 ```
+
+This document describes product boundaries, not a production-readiness, uptime, or provider-dashboard claim. For current health checks, deployment inspection, evidence handling, and rollback, see the [Operations runbook](OPERATIONS_RUNBOOK.md).
 
 ## Components
 
 | Component | Responsibility | Does not do |
 |---|---|---|
-| React/Vite on Cloudflare Pages | Anonymous input, accessible results, local session state | Store user history or make verdicts |
-| Optional Cloudflare Worker | Narrow gateway or rate limiting if abuse evidence justifies it | Business logic, persistence, or model execution |
-| FastAPI on OCI Always Free | Validate bounded requests and run scoring | Editorial workflow, accounts, or background jobs |
-| TF-IDF + FEDA + XGBoost artifacts | Produce prioritization signals | Establish truth or replace human review |
-| Private reproduction environment | Retain private scraped source material outside public Git/history | Serve public traffic |
+| React/Vite frontend on Cloudflare Workers | Anonymous input, accessible results, local session state | Store user history or make verdicts |
+| Private FastAPI backend on Render | Validate bounded requests and run scoring | Editorial workflow, accounts, or background jobs |
+| Scoring pipeline | Produce prioritization signals | Establish truth or replace human review |
+| Private reproduction environment | Retain private source material outside public Git/history | Serve public traffic |
 
 ## Data flow
 
-1. A browser submits an item or batch within future, documented size limits.
-2. Pages sends the request directly to the API when the Worker is off, or through the optional Worker when it is enabled.
-3. FastAPI validates shape and size, computes features, runs the model, and returns ranked non-definitive output.
+1. A browser submits an item or batch within the documented product limits.
+2. The frontend sends the request through the application's configured API boundary.
+3. The private FastAPI service validates shape and size, computes features, runs the scoring pipeline, and returns ranked, non-definitive output.
 4. The browser displays the result in memory for the current session only.
-5. Operational logs must exclude request bodies, tokens, and personal data; retention details remain **[VERIFY BEFORE DEPLOYMENT]**.
+5. Operational records must exclude request bodies, tokens, and personal data; handling details belong in the [Operations runbook](OPERATIONS_RUNBOOK.md).
 
 ## Public/private boundary
 
 | Public repository/release | Private only |
 |---|---|
-| Approved source, documentation, MIT-licensed datasets with verified provenance, and eligible model artifacts | Scraped Ecuador dataset, raw source content, credentials, operational logs, snapshots, archives, unapproved legacy material, and model artifacts trained with private scraped data by default |
+| Approved source, documentation, verified public datasets, and material explicitly cleared for release | Scraped Ecuador data, raw source content, credentials, operational logs, private runtime details, model/data bundles, snapshots, archives, and unapproved legacy material |
 | Reproduction scripts that do not embed private data | Private ingestion/reproduction inputs and outputs |
 
-Model artifacts trained with the private scraped dataset remain private by default. They may be public only after a documented review of rights, privacy, and leakage risk, or after exclusive reproduction with datasets whose public licenses and provenance are verified. The current model is not presumed public before that gate. The exact public content is controlled by [Publication policy](PUBLICATION_POLICY.md), not by `.gitignore` alone.
+The public repository does not publish the private dataset, private model bundle, deployment credentials, or private operational evidence. Publication decisions remain governed by [Publication policy](PUBLICATION_POLICY.md), not by `.gitignore` alone.
 
 ## Privacy and security
 
 - Minimize inputs and avoid persistent storage by design.
-- Enforce request size, content-type, timeouts, and rate limits at public boundaries.
-- Keep secrets in provider-managed configuration; never in source, artifacts, docs, browser bundles, or logs.
-- Restrict CORS to the published frontend origin(s) after deployment values are verified.
-- Pin and scan dependencies when code is materialized.
-- Do not treat a model as public until its artifact-release gate passes: exclusive verified-public-data reproduction, or documented rights, privacy, and leakage-risk approval.
+- Enforce request size, content type, timeouts, and rate limits at public boundaries.
+- Keep secrets in provider-managed configuration; never place them in source, artifacts, docs, browser bundles, or logs.
+- Restrict CORS to the published frontend origin after deployment values are verified.
+- Do not treat a model or dataset as public until its release gate passes.
 
 ## Reliability and observability
 
 - Provide clear unavailable/error responses rather than silent fallback scores.
-- Add health/readiness checks and bounded request timeouts during implementation.
-- Capture privacy-safe health, latency, error-rate, release revision, and model-artifact identity signals.
-- Treat free-tier availability as best effort; no free SLA is assumed.
-- Define backup and restore evidence before public cutover; see [Free deployment](FREE_DEPLOYMENT.md).
+- Treat free-tier or low-cost availability as best effort; no SLA is claimed.
+- These public docs do not claim continuous monitoring. Use the low-volume checks and provider-native inspection described in the [Operations runbook](OPERATIONS_RUNBOOK.md).
+- Keep operational evidence privacy-safe and private; never put raw logs, request/response bodies, secrets, or private identifiers in public issues or documentation.
+
+## Historical deployment plan (superseded)
+
+The earlier design considered Cloudflare Pages for the static frontend and OCI Always Free compute for the FastAPI service, with an optional Cloudflare Worker gateway. That plan is retained as historical migration context only. Pages and OCI are **not** the current deployment boundary and the instructions below are not executable deployment guidance.
+
+For any future provider change, re-verify provider terms, account eligibility, limits, network configuration, and release evidence before making a change. Do not infer current provider settings from this historical plan.
 
 ## YAGNI decisions
 
@@ -70,6 +72,6 @@ Model artifacts trained with the private scraped dataset remain private by defau
 | Accounts and roles | They create privacy and support obligations without serving prioritization. |
 | Queues or background workers | Current scoring path is synchronous and bounded. |
 | Microservices, DDD, Turborepo, Kubernetes | They add operational surface without a proven requirement. |
-| Vercel, Fly, Supabase | Not part of the target design; retained only as migration context if needed. |
+| Additional hosting providers | No evidence currently requires a provider change. |
 
-Next: [Migration plan](MIGRATION_PLAN.md).
+Next: [Operations runbook](OPERATIONS_RUNBOOK.md).
