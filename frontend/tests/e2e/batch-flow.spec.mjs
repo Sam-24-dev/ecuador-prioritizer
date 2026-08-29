@@ -129,6 +129,20 @@ async function addManualArticle(page, text = MANUAL_ARTICLE) {
 }
 
 test.describe('Phase 11 deterministic batch journeys', () => {
+  test('removing the invalid blank news card clears the validation status', async ({ page }) => {
+    const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
+    await installDeterministicTransport(page, state);
+    await page.goto('/');
+
+    await page.getByRole('button', { name: 'Agregar una noticia' }).click();
+    await page.getByRole('button', { name: 'Analizar 1 noticia' }).click();
+    await expect(page.getByRole('status')).toContainText('Corrige las noticias marcadas antes de analizar. El contenido no fue modificado.');
+
+    await page.getByRole('button', { name: 'Quitar noticia 1' }).click();
+    await expect(page.getByRole('status')).toHaveCount(0);
+    await expectNoUnexpectedNetwork(state);
+  });
+
   test('URL import dialog restores focus to its trigger after Escape and close', async ({ page }) => {
     const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
     await installDeterministicTransport(page, state);
