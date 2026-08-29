@@ -3,6 +3,8 @@ import { test, expect } from 'playwright/test';
 const VALID_URL = 'https://fixture.example/noticias/reforma-educativa';
 const INVALID_URL = 'https://fixture.example/invalid';
 const OFFLINE_URL = 'https://fixture.example/offline';
+const PERMANENT_URL = 'https://fixture.example/missing';
+const RATE_LIMITED_URL = 'https://fixture.example/rate-limited';
 const URL_ARTICLE = 'Contenido extraído de fixture para probar la edición y el análisis XGBoost-shaped.';
 const MANUAL_ARTICLE = 'Noticia manual para confirmar el flujo principal de análisis.';
 const PASTE_ARTICLES = [
@@ -66,6 +68,22 @@ async function installDeterministicTransport(page, state) {
             status: 502,
             contentType: 'application/json',
             body: JSON.stringify({ error: { code: 'upstream_unavailable', message: 'upstream timeout from provider' } }),
+          });
+          return;
+        }
+        if (body.url === PERMANENT_URL) {
+          await route.fulfill({
+            status: 502,
+            contentType: 'application/json',
+            body: JSON.stringify({ error: { code: 'article_unavailable', message: 'private upstream detail' } }),
+          });
+          return;
+        }
+        if (body.url === RATE_LIMITED_URL) {
+          await route.fulfill({
+            status: 429,
+            contentType: 'application/json',
+            body: JSON.stringify({ error: { code: 'rate_limited', message: 'private upstream detail' } }),
           });
           return;
         }
@@ -350,6 +368,55 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     await expect(page.getByRole('alert')).toContainText('No fue posible extraer esta URL.');
     await expect(page.getByRole('alert')).toContainText('Intenta de nuevo más tarde.');
     await expect(page.getByRole('alert')).not.toContainText('upstream timeout');
+    await expectNoUnexpectedNetwork(state);
+  });
+
+  test('permanent extraction failures offer another link or manual text without retry', async ({ page }) => {
+    const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
+    await installDeterministicTransport(page, state);
+    await page.goto('/');
+
+    await addManualArticle(page, 'Borrador que debe conservarse.');
+    await page.getByRole('button', { name: 'Importar desde URL' }).click();
+    await page.getByLabel('URL de la noticia').fill(PERMANENT_URL);
+    await page.getByRole('button', { name: 'Extraer vista previa' }).click();
+    const alert = page.getByRole('alert');
+    await expect(alert).toContainText('No pudimos extraer el contenido de este enlace. Prueba con otro enlace del medio o pega el texto de la noticia.');
+    await expect(alert).not.toContainText('private upstream detail');
+    await expect(alert.getByRole('button', { name: 'Reintentar extracción' })).toHaveCount(0);
+    await expect(alert.getByRole('button', { name: 'Pegar el texto' })).toBeVisible();
+    await alert.getByRole('button', { name: 'Probar otro enlace' }).click();
+    await expect(page.getByLabel('URL de la noticia')).toBeFocused();
+    await expect(page.getByRole('alert')).toHaveCount(0);
+
+    await page.getByLabel('URL de la noticia').fill(PERMANENT_URL);
+    await page.getByRole('button', { name: 'Extraer vista previa' }).click();
+    await page.getByRole('alert').getByRole('button', { name: 'Pegar el texto' }).click();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByText('2 de 10')).toBeVisible();
+    await expect(page.getByLabel('Contenido de la noticia').last()).toBeFocused();
+    await expect(page.getByLabel('Contenido de la noticia').first()).toHaveValue('Borrador que debe conservarse.');
+    await expectNoUnexpectedNetwork(state);
+  });
+
+  test('transient extraction failures keep retry and preserve the URL', async ({ page }) => {
+    const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
+    await installDeterministicTransport(page, state);
+    await page.goto('/');
+
+    await page.getByRole('button', { name: 'Importar desde URL' }).click();
+    const input = page.getByLabel('URL de la noticia');
+    await input.fill(RATE_LIMITED_URL);
+    await page.getByRole('button', { name: 'Extraer vista previa' }).click();
+    const alert = page.getByRole('alert');
+    await expect(alert).toContainText('No fue posible extraer esta URL. Intenta de nuevo más tarde.');
+    await expect(alert).not.toContainText('private upstream detail');
+    await expect(alert.getByRole('button', { name: 'Reintentar extracción' })).toBeVisible();
+    await expect(alert.getByRole('button', { name: 'Pegar el texto' })).toHaveCount(0);
+    await expect(input).toHaveValue(RATE_LIMITED_URL);
+    await alert.getByRole('button', { name: 'Reintentar extracción' }).click();
+    await expect(input).toHaveValue(RATE_LIMITED_URL);
+    expect(state.apiRequests.filter((request) => request.url().endsWith('/extractions/url'))).toHaveLength(2);
     await expectNoUnexpectedNetwork(state);
   });
 });

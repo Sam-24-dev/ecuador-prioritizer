@@ -6,6 +6,7 @@ import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { getSupportReferenceIdFromError } from '@/services/api/support-reference-id';
+import { classifyUrlExtractionError } from '@/lib/url-extraction-errors';
 import type { UrlExtractionResponse } from '@/types/api';
 
 interface UrlImportDialogProps {
@@ -14,6 +15,7 @@ interface UrlImportDialogProps {
   onCloseAutoFocus?: (event: Event) => void;
   onClose: () => void;
   onConfirm: (draft: { text: string; source: string; displaySource: string }) => boolean;
+  onPasteText: () => void;
 }
 
 function isAbortError(error: unknown): boolean {
@@ -27,11 +29,16 @@ function urlExtractionErrorMessage(error: unknown): string {
 
   switch (code) {
     case 'invalid_url':
+      return 'No fue posible extraer esta URL. Edita la dirección o prueba con otro artículo público.';
     case 'extracted_text_too_short':
     case 'unsupported_media_type':
-      return 'No fue posible extraer esta URL. Edita la dirección o prueba con otro artículo público.';
     case 'response_too_large':
-      return 'No fue posible extraer esta URL. Prueba con otro artículo público.';
+    case 'upstream_access_denied':
+    case 'article_unavailable':
+    case 'upstream_rejected':
+    case 'redirect_limit_exceeded':
+    case 'extraction_failed':
+      return 'No pudimos extraer el contenido de este enlace. Prueba con otro enlace del medio o pega el texto de la noticia.';
     case 'rate_limited':
     case 'client_timeout':
     case 'upstream_timeout':
@@ -39,7 +46,7 @@ function urlExtractionErrorMessage(error: unknown): string {
     case 'service_unavailable':
       return 'No fue posible extraer esta URL. Intenta de nuevo más tarde.';
     default:
-      return 'No fue posible extraer esta URL. Verifica que sea un enlace público de una noticia e inténtalo de nuevo.';
+      return 'No pudimos extraer el contenido de este enlace. Prueba con otro enlace del medio o pega el texto de la noticia.';
   }
 }
 
@@ -52,7 +59,7 @@ function safeHttpUrl(value: string): string | null {
   }
 }
 
-export function UrlImportDialog({ isOpen, isLotFull, onCloseAutoFocus, onClose, onConfirm }: UrlImportDialogProps) {
+export function UrlImportDialog({ isOpen, isLotFull, onCloseAutoFocus, onClose, onConfirm, onPasteText }: UrlImportDialogProps) {
   const [url, setUrl] = useState('');
   const [urlError, setUrlError] = useState('');
   const [preview, setPreview] = useState<UrlExtractionResponse | null>(null);
@@ -62,6 +69,7 @@ export function UrlImportDialog({ isOpen, isLotFull, onCloseAutoFocus, onClose, 
   const [text, setText] = useState('');
   const [status, setStatus] = useState('');
   const controllerRef = useRef<AbortController | null>(null);
+  const urlInputRef = useRef<HTMLInputElement>(null);
   const extraction = useExtractUrl();
   const { isError, isPending, mutate, reset } = extraction;
   const extractionError = extraction.error;
@@ -150,8 +158,22 @@ export function UrlImportDialog({ isOpen, isLotFull, onCloseAutoFocus, onClose, 
     onClose();
   };
 
+  const tryAnotherUrl = () => {
+    startAnotherImport();
+    requestAnimationFrame(() => {
+      urlInputRef.current?.focus();
+      urlInputRef.current?.select();
+    });
+  };
+
+  const pasteText = () => {
+    handleClose();
+    onPasteText();
+  };
+
   const finalUrl = preview ? safeHttpUrl(preview.final_url) : null;
   const supportReferenceId = getSupportReferenceIdFromError(extractionError);
+  const errorPresentation = classifyUrlExtractionError(extractionError);
 
   const confirmPreview = () => {
     if (!preview) return;
@@ -181,6 +203,7 @@ export function UrlImportDialog({ isOpen, isLotFull, onCloseAutoFocus, onClose, 
           }}
         >
           <Input
+            ref={urlInputRef}
             id="url-import-input"
             type="url"
             label="URL de la noticia"
@@ -211,7 +234,9 @@ export function UrlImportDialog({ isOpen, isLotFull, onCloseAutoFocus, onClose, 
               {supportReferenceId && (
                 <p>ID de referencia: <code className="font-mono select-all">{supportReferenceId}</code></p>
               )}
-              <Button type="button" variant="outline" size="sm" onClick={requestExtraction}>Reintentar extracción</Button>
+              {errorPresentation.canRetry && <Button type="button" variant="outline" size="sm" onClick={requestExtraction} disabled={isPending}>Reintentar extracción</Button>}
+              {!errorPresentation.canRetry && <Button type="button" variant="outline" size="sm" onClick={tryAnotherUrl}>Probar otro enlace</Button>}
+              {errorPresentation.canPaste && <Button type="button" size="sm" onClick={pasteText}>Pegar el texto</Button>}
             </div>
           </div>
         )}

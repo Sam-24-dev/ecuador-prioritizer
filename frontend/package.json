@@ -15,6 +15,7 @@
     "check:url-import": "node tests/check-url-import-api.mjs && node tests/check-url-import-batch.mjs && node tests/check-url-import-ui.mjs && node tests/check-url-import-ux.mjs",
     "check:client-timeout": "node --experimental-strip-types tests/client-timeout.test.ts && node tests/check-client-timeout.mjs",
     "check:support-reference-id": "node --experimental-strip-types tests/support-reference-id.test.ts",
+    "check:url-extraction-errors": "node --experimental-strip-types tests/url-extraction-errors.test.ts",
     "check:e2e": "playwright test --config=playwright.config.mjs",
     "preview": "vite preview",
     "check:security-headers": "node tests/check-security-headers.mjs",
