@@ -4,10 +4,16 @@
 
 Public release is allowlist-first. `.gitignore` reduces accidents; it does not authorize publication.
 
-The historic model runtime is private and owner-authorized only, with no
-retraining in this phase. Public code excludes the private bundle, model
-assets, and scraped data. Conditions for use or redistribution remain tied to
-the original sources; this policy records evidence boundaries, not legal advice.
+The historic model runtime is private and owner-authorized to serve the current
+public pilot, with no retraining in this phase. Public code excludes the private
+bundle, model assets, and scraped data. Conditions for use or redistribution
+remain tied to the original sources; this policy records evidence boundaries,
+not legal advice.
+
+The pilot is best effort: it prioritizes items for human review, does not
+fact-check or make decisions about people, and carries no SLA. Authorizing
+private inference does not authorize publishing the bundle, artifacts, or
+scraped dataset.
 
 ## Include/exclude matrix
 
