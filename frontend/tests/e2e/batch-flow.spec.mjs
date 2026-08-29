@@ -223,8 +223,9 @@ test.describe('Phase 11 deterministic batch journeys', () => {
 
     await page.getByRole('button', { name: 'Analizar 1 noticia' }).click();
     await expect(page).toHaveURL(/\/resultados$/);
-    await expect(page.getByText('Puntaje falso')).toBeVisible();
-    await expect(page.getByText('88.0%')).toBeVisible();
+    await expect(page.getByText('Posible desinformación')).toBeVisible();
+    await expect(page.getByText('Puntaje').first()).toBeVisible();
+    await expect(page.getByText('88 / 100')).toBeVisible();
     await expect(page.getByRole('link', { name: VALID_URL })).toBeVisible();
     await page.context().grantPermissions(['clipboard-read', 'clipboard-write'], { origin: 'http://127.0.0.1:4173' });
     await page.getByRole('button', { name: 'Copiar fuente' }).click();
@@ -236,7 +237,9 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     await expect(page.getByRole('status').filter({ hasText: 'La exportación CSV se inició.' })).toBeVisible();
     expect(download.suggestedFilename()).toBe('ecuador-prioritizer-resultados.csv');
     const csv = await readDownload(download);
-    expect(csv).toContain('"orden","clase_preliminar","puntaje_falso","p_verdadero","fuente","texto"');
+    expect(csv).toContain('"orden_de_revision","resultado_de_priorizacion","puntaje_de_posible_desinformacion_0_a_100","fuente","texto"');
+    expect(csv).toContain('"1","Posible desinformación","88"');
+    expect(csv).toContain('"Posible desinformación","88","fixture.example"');
     expect(csv).toContain('Editada.');
 
     expect(state.batchBodies).toHaveLength(1);
@@ -247,6 +250,42 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     });
     expect(JSON.stringify(state.batchBodies[0])).not.toContain('Autora Fixture');
     expect(JSON.stringify(state.batchBodies[0])).not.toContain('reforma-educativa?utm_source');
+    await expectNoUnexpectedNetwork(state);
+  });
+
+  test('results map both raw classes to user-facing priority labels and preserve batch order', async ({ page }) => {
+    const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
+    await installDeterministicTransport(page, state);
+    await page.goto('/');
+
+    await addManualArticle(page, 'Primera noticia para verificar prioridad.');
+    await addManualArticle(page, 'Segunda noticia para verificar prioridad.');
+    await page.getByRole('button', { name: 'Analizar 2 noticias' }).click();
+    await expect(page).toHaveURL(/\/resultados$/);
+
+    await expect(page.getByText('Posible desinformación')).toBeVisible();
+    await expect(page.getByText('Menor señal de desinformación')).toBeVisible();
+    await expect(page.getByText('88 / 100')).toBeVisible();
+    await expect(page.getByText('12 / 100')).toBeVisible();
+    await expect(page.getByText('Revisar después', { exact: true })).toHaveCount(2);
+    await expect(page.getByText('Revisar primero', { exact: true })).toHaveCount(2);
+    await expect(page.getByText('Clasificación preliminar:', { exact: false })).toHaveCount(0);
+    await expect(page.getByText('Puntaje falso', { exact: false })).toHaveCount(0);
+    await expect(page.getByText('Nota de priorización:', { exact: false })).toHaveCount(0);
+
+    const downloadPromise = page.waitForEvent('download');
+    await page.getByRole('button', { name: 'Descargar todos los resultados (CSV)' }).click();
+    const csv = await readDownload(await downloadPromise);
+    expect(csv).toContain('"1","Posible desinformación","88"');
+    expect(csv).toContain('"2","Menor señal de desinformación","12"');
+    expect(csv).not.toContain('clase_preliminar');
+    expect(csv).not.toContain('p_verdadero');
+
+    expect(state.batchBodies).toHaveLength(1);
+    expect(state.batchBodies[0].items.map((item) => item.text)).toEqual([
+      'Primera noticia para verificar prioridad.',
+      'Segunda noticia para verificar prioridad.',
+    ]);
     await expectNoUnexpectedNetwork(state);
   });
 
