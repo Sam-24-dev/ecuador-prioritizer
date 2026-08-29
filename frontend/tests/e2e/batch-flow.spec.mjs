@@ -134,6 +134,67 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     await expect(trigger).toBeFocused();
   });
 
+  test('paste preview restores focus to its trigger after Escape, cancel, and close', async ({ page }) => {
+    const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
+    await installDeterministicTransport(page, state);
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: 'Pegar varias noticias' });
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+
+    await trigger.click();
+    await page.getByLabel('Noticias para revisar').fill(PASTE_ARTICLES);
+    await page.getByRole('button', { name: 'Revisar noticias' }).click();
+    await expect(page.getByRole('heading', { name: 'Noticia detectada 1' })).toBeVisible();
+    await page.getByRole('button', { name: /Seguir corrigiendo/ }).click();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+
+    await trigger.click();
+    await page.getByRole('dialog').getByRole('button', { name: /Cerrar/ }).click();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+    await expectNoUnexpectedNetwork(state);
+  });
+
+  test('paste preview keeps edits after close, clears after confirmation, and supports explicit discard', async ({ page }) => {
+    const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
+    await installDeterministicTransport(page, state);
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: 'Pegar varias noticias' });
+    await trigger.click();
+    await page.getByLabel('Noticias para revisar').fill(PASTE_ARTICLES);
+    await page.getByRole('button', { name: 'Revisar noticias' }).click();
+    const editedText = `${PASTE_ARTICLES.split('\n--- NUEVA NOTICIA ---\n')[0]} Editada.`;
+    await page.getByLabel('Contenido de la noticia').first().fill(editedText);
+    await page.getByLabel('Fuente (opcional)').first().fill('Fuente editada');
+    await page.getByRole('button', { name: /Seguir corrigiendo/ }).click();
+
+    await trigger.click();
+    await expect(page.getByLabel('Contenido de la noticia').first()).toHaveValue(editedText);
+    await expect(page.getByLabel('Fuente (opcional)').first()).toHaveValue('Fuente editada');
+    await page.getByRole('button', { name: 'Confirmar y agregar noticias' }).click();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(page.getByLabel('Contenido de la noticia').first()).toHaveValue(editedText);
+    await expect(page.getByLabel('Fuente (opcional)').first()).toHaveValue('Fuente editada');
+
+    await trigger.click();
+    await expect(page.getByRole('heading', { name: 'Noticia detectada 1' })).toHaveCount(0);
+    await page.getByRole('dialog').getByLabel('Noticias para revisar').fill(PASTE_ARTICLES);
+    await page.getByRole('button', { name: 'Revisar noticias' }).click();
+    await page.getByRole('button', { name: /Descartar vista previa/ }).click();
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await trigger.click();
+    await expect(page.getByRole('heading', { name: 'Noticia detectada 1' })).toHaveCount(0);
+    await expectNoUnexpectedNetwork(state);
+  });
+
   test('URL preview maps to a lot, returns XGBoost-shaped results, and exports CSV', async ({ page }) => {
     const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
     await installDeterministicTransport(page, state);
