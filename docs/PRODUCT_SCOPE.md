@@ -4,6 +4,9 @@
 
 Ecuador Prioritizer helps fact-checkers notice which public news items or claims may deserve attention first. It provides ranked signals, not editorial decisions.
 
+The current release is a best-effort public pilot. It supports human review; it
+does not fact-check, decide about people, or promise an SLA.
+
 ## Users and jobs-to-be-done
 
 | User | Job |

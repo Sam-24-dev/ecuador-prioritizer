@@ -11,8 +11,8 @@ Phase 0 is recorded in [Phase 0 source evidence](PHASE_0_SOURCE_EVIDENCE.md).
 - Phase 0: **PASS** — immutable two-source set approved.
 - Phase 1: **PASS** — [236 tracked blobs are exhaustively classified](PHASE_1_ALLOWLIST.md); validator output is PASS.
 - Phase 2: **materialized and locally verified** - only allowlisted Phase 2 paths were recreated from the frozen GitHub blobs. Applicable checks passed: allowlist validator, COPY blob verification, focused backend tests, frontend package/static/build/E2E checks, `pip check`, installed versions and requirement pins, and 95 applicable pytest tests. This runtime evidence is not production or Phase 3 asset authorization.
-- Phase 3: **`PUBLIC_ASSET_GATE=BLOCKED`** - model/data assets remain absent and private; the runtime fails closed before artifact loading. See [Phase 3 public asset gate](PHASE_3_ASSET_GATE.md).
-- Phase 3 private runtime: **owner-authorized, no retraining** - historic assets are held only in an external private bundle. The workspace/public code excludes the bundle, model assets, and scraped Ecuador dataset.
+- Phase 3: **Public artifact release remains closed** - the owner-authorized private model bundle serves current public pilot inference, while model/data assets remain absent from the public repository. See [Phase 3 public asset gate](PHASE_3_ASSET_GATE.md).
+- Phase 3 private runtime: **owner-authorized, no retraining** - the private bundle is not published, and the workspace/public code excludes model assets and the scraped Ecuador dataset.
 
 ## Phases and gates
 
@@ -21,9 +21,9 @@ Phase 0 is recorded in [Phase 0 source evidence](PHASE_0_SOURCE_EVIDENCE.md).
 | 0. Freeze source evidence | Identify an approved immutable source set: one or more clean SHAs, each with repository, branch, role, provenance, and approval. | Every source SHA is reachable, reviewed, role-assigned, and approved. | Stop; replace only the deficient source identity. |
 | 1. Build allowlist | Classify each candidate path against its assigned source SHA as include, private, legacy, generated, or unknown. | Every materialized path has an approved classification; unknown is excluded. | Remove the unapproved path from the new workspace. |
 | 2. Materialize safely | Recreate only allowlisted source and minimal configuration from the assigned approved SHA. No recursive copy, archive extraction, or history transfer. | Path manifest matches allowlist; no private/operational content found. | Delete only newly materialized approved paths; preserve audit record. |
-| 3. Reproduce or review public assets | Rebuild artifacts exclusively from verified-public-license datasets, or run explicit documented rights, privacy, and leakage-risk review for any artifact trained with private scraped data. | License, hash, provenance, reproducibility, quality checks, and the applicable artifact-release gate pass. | Keep the artifact/package private. |
+| 3. Reproduce or review public assets | Rebuild artifacts exclusively from verified-public-license datasets, or run explicit documented rights, privacy, and leakage-risk review for any artifact trained with private scraped data. | License, provenance, reproducibility, quality checks, and the applicable artifact-release gate pass before publication. This gate does not block owner-authorized private pilot inference. | Keep the artifact/package private. |
 | 4. Verify product | Add and run focused frontend/API/model tests, security checks, and documentation checks. | Results are recorded against the candidate revision. | Fix in the new workspace; never patch from the dirty checkout. |
-| 5. Deploy preview | Select final hosting through a documented post-Phase-0 gate, then configure the approved frontend/API targets using non-secret deployment settings. | The Cloudflare target and the later Vercel mention are reconciled by an explicit decision; preview smoke tests, privacy checks, and cost guardrails pass. | Disable preview or revert to prior known-good release. |
+| 5. Deploy preview | Select hosting through a documented provider decision, then configure approved frontend/API targets using non-secret deployment settings. | Preview smoke tests, privacy checks, and cost guardrails pass. The current pilot boundary is Cloudflare Worker frontend plus private Render backend. | Disable preview or revert to prior known-good release. |
 | 6. Public cutover | Verify backups/bundles, rename prior repositories with a `-legacy` suffix to release `ecuador-prioritizer`, create/publish the new definitive repository, reconnect hosting, and validate. | Publication checklist, release manifest, verified backups/bundles, hosting validation, and rollback owner are confirmed. | Revert hosting to the last known-good release; preserve legacy repositories for rollback. |
 | 7. Retirement | Archive legacy repositories first. Delete only after a satisfactory rollback window and explicit user authorization. | Archive state, rollback evidence, and explicit user authorization for deletion are recorded. | Stop at archive; do not delete. |
 
@@ -42,7 +42,9 @@ Phase 0 is recorded in [Phase 0 source evidence](PHASE_0_SOURCE_EVIDENCE.md).
 
 ## Phase 3 artifact requirements and gate
 
-Current public asset gate: **`PUBLIC_ASSET_GATE=BLOCKED`**. No artifact has been admitted; see [Phase 3 public asset gate](PHASE_3_ASSET_GATE.md) for the evidence boundary and minimum unlock conditions.
+The public artifact release gate remains closed. No private artifact has been admitted to the public repository; see [Phase 3 public asset gate](PHASE_3_ASSET_GATE.md)
+for the evidence boundary and publication conditions. This does not block the
+owner-authorized private bundle from serving the current public pilot.
 
 - Verify public artifact/data license, provenance, hash, reproducibility, and quality evidence.
 - For artifacts trained with private scraped data, require verified-public-only reproduction or documented rights, privacy, and leakage-risk approval.
