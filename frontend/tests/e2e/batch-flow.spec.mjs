@@ -143,6 +143,33 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     await expectNoUnexpectedNetwork(state);
   });
 
+  test('URL validation errors expose live alert semantics and preserve field associations', async ({ page }) => {
+    const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
+    await installDeterministicTransport(page, state);
+    await page.goto('/');
+
+    await page.getByRole('button', { name: 'Importar desde URL' }).click();
+    const input = page.getByLabel('URL de la noticia');
+    await input.fill('');
+    await page.getByRole('button', { name: 'Extraer vista previa' }).click();
+
+    const error = page.locator('#url-import-input-error');
+    await expect(error).toHaveAttribute('role', 'alert');
+    await expect(error).toContainText('Ingresa una URL para extraer una vista previa.');
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(input).toHaveAttribute('aria-describedby', 'url-import-input-error');
+    await expectNoUnexpectedNetwork(state);
+  });
+
+  test('skip link moves focus to the main content target', async ({ page }) => {
+    await page.goto('/');
+
+    const skipLink = page.getByRole('link', { name: 'Saltar al contenido principal' });
+    await skipLink.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#contenido-principal')).toBeFocused();
+  });
+
   test('URL import dialog restores focus to its trigger after Escape and close', async ({ page }) => {
     const state = { apiRequests: [], batchBodies: [], externalRequests: [], unexpectedApiRequests: [] };
     await installDeterministicTransport(page, state);
@@ -152,6 +179,7 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     await trigger.focus();
     await page.keyboard.press('Enter');
     await expect(page.getByRole('dialog')).toBeVisible();
+    await expect(page.getByRole('dialog')).toHaveAttribute('aria-modal', 'true');
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await expect(trigger).toBeFocused();
@@ -163,6 +191,18 @@ test.describe('Phase 11 deterministic batch journeys', () => {
     await expect(page.getByRole('dialog')).toBeVisible();
     await page.getByRole('dialog').getByRole('button', { name: /Cerrar/ }).click();
     await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+  });
+
+  test('mobile navigation drawer exposes modal semantics and restores focus after Escape', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByTestId('mobile-hamburger-button');
+    await trigger.click();
+    await expect(page.getByTestId('mobile-drawer-content')).toHaveAttribute('aria-modal', 'true');
+    await page.keyboard.press('Escape');
+    await expect(page.getByTestId('mobile-drawer-content')).toHaveCount(0);
     await expect(trigger).toBeFocused();
   });
 

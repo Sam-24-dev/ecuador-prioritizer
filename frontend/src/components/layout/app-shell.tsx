@@ -17,7 +17,7 @@ export function AppShell({ children }: AppShellProps) {
       <Sidebar isOpenMobile={isMobileNavOpen} onCloseMobile={() => setIsMobileNavOpen(false)} />
       <div className="flex min-w-0 flex-1 flex-col">
         <Header onOpenMobileNav={() => setIsMobileNavOpen(true)} />
-        <main id="contenido-principal" className="w-full flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
+        <main id="contenido-principal" tabIndex={-1} className="w-full flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
           {children}
         </main>
       </div>
