@@ -5,4 +5,3 @@ export function getPriorityLabel(preliminaryClass: PreliminaryClass): string {
     ? 'Posible desinformación'
     : 'Menor señal de desinformación';
 }
-
