@@ -49,7 +49,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             </div>
           )}
         </div>
-        {error && <p id={errorId} className="text-xs font-medium text-destructive">{error}</p>}
+        {error && <p id={errorId} role="alert" className="text-xs font-medium text-destructive">{error}</p>}
         {helperText && !error && <p className="text-xs text-muted-foreground">{helperText}</p>}
       </div>
     );

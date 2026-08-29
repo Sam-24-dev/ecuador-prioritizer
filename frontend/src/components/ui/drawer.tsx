@@ -24,6 +24,7 @@ export function Drawer({ isOpen, onClose, title, description, children, side = '
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-foreground/35" />
         <DialogPrimitive.Content
+          aria-modal="true"
           data-testid="mobile-drawer-content"
           onCloseAutoFocus={(event) => {
             const trigger = document.querySelector<HTMLButtonElement>('[data-testid="mobile-hamburger-button"]');
