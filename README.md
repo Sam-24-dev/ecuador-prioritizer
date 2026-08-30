@@ -1,10 +1,22 @@
 # Ecuador Prioritizer
 
+<div align="center">
+
+**Prioriza noticias y afirmaciones para enfocar la revisión humana.**
+
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=061018)
+![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.141-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![XGBoost](https://img.shields.io/badge/XGBoost-2.1-337AB7?style=for-the-badge)
+![Cloudflare Workers](https://img.shields.io/badge/Cloudflare_Workers-Frontend-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
+![Render](https://img.shields.io/badge/Render-API-46E3B7?style=for-the-badge&logo=render&logoColor=white)
+![License](https://img.shields.io/badge/Code-MIT-green?style=for-the-badge)
+
+</div>
+
 Ecuador Prioritizer ayuda a equipos de verificación a **ordenar noticias y afirmaciones para revisión humana**. Entrega señales preliminares de priorización; no reemplaza la verificación profesional.
-
-> Priorización preliminar para orientar la revisión humana de noticias y afirmaciones.
-
-**Tecnologías del piloto:** <kbd>React</kbd> <kbd>Vite</kbd> <kbd>TypeScript</kbd> <kbd>FastAPI</kbd> <kbd>Python</kbd> <kbd>XGBoost</kbd> <kbd>Cloudflare Workers</kbd> <kbd>Render</kbd>
 
 ## Demo en vivo
 
