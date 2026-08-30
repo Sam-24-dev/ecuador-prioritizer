@@ -1,0 +1,320 @@
+# THIRD_PARTY_NOTICES
+
+This file records third-party code present in the publicly distributed browser bundle. It is provenance/compliance hygiene, not legal advice.
+
+## Scope
+
+- **Included:** rendered third-party modules in the Vite production browser chunk produced from `frontend/`.
+- **Excluded:** the private Render backend, the private model/artifact bundle, and the scraped Ecuador dataset. None is distributed by this browser bundle or covered by this notice.
+- This notice does not grant rights beyond the upstream licenses listed below.
+
+## Reproducible derivation
+
+1. From `frontend/`, run `npm ci`.
+2. Run `npm run build`.
+3. Inspect the Vite/Rollup production chunk module graph. A package is listed only when an installed `node_modules/<package>` module contributes rendered bytes to the browser chunk; lockfile-only, development-only, and tree-shaken packages are not listed.
+4. Read each listed package version and `license` value from its installed `package.json`; inspect shipped license/notice files where present.
+
+## Included package evidence (33 packages)
+
+| Package | Version | Declared license | Rendered modules | Rendered bytes | License evidence |
+| --- | --- | --- | ---: | ---: | --- |
+| `@radix-ui/primitive` | `1.1.7` | `MIT` | 1 | 1862 | `frontend/node_modules/@radix-ui/primitive/LICENSE` |
+| `@radix-ui/react-compose-refs` | `1.1.5` | `MIT` | 1 | 1107 | `frontend/node_modules/@radix-ui/react-compose-refs/LICENSE` |
+| `@radix-ui/react-context` | `1.2.2` | `MIT` | 1 | 4220 | `frontend/node_modules/@radix-ui/react-context/LICENSE` |
+| `@radix-ui/react-dialog` | `1.1.23` | `MIT` | 1 | 11073 | `frontend/node_modules/@radix-ui/react-dialog/LICENSE` |
+| `@radix-ui/react-dismissable-layer` | `1.1.19` | `MIT` | 1 | 13860 | `frontend/node_modules/@radix-ui/react-dismissable-layer/LICENSE` |
+| `@radix-ui/react-focus-guards` | `1.1.6` | `MIT` | 1 | 1333 | `frontend/node_modules/@radix-ui/react-focus-guards/LICENSE` |
+| `@radix-ui/react-focus-scope` | `1.1.16` | `MIT` | 1 | 8976 | `frontend/node_modules/@radix-ui/react-focus-scope/LICENSE` |
+| `@radix-ui/react-id` | `1.1.4` | `MIT` | 1 | 526 | `frontend/node_modules/@radix-ui/react-id/LICENSE` |
+| `@radix-ui/react-portal` | `1.1.17` | `MIT` | 1 | 693 | `frontend/node_modules/@radix-ui/react-portal/LICENSE` |
+| `@radix-ui/react-presence` | `1.1.10` | `MIT` | 1 | 6436 | `frontend/node_modules/@radix-ui/react-presence/LICENSE` |
+| `@radix-ui/react-primitive` | `2.1.10` | `MIT` | 1 | 1051 | `frontend/node_modules/@radix-ui/react-primitive/LICENSE` |
+| `@radix-ui/react-slot` | `1.3.3` | `MIT` | 1 | 5978 | `frontend/node_modules/@radix-ui/react-slot/LICENSE` |
+| `@radix-ui/react-use-callback-ref` | `1.1.4` | `MIT` | 1 | 436 | `frontend/node_modules/@radix-ui/react-use-callback-ref/LICENSE` |
+| `@radix-ui/react-use-controllable-state` | `1.2.6` | `MIT` | 1 | 3505 | `frontend/node_modules/@radix-ui/react-use-controllable-state/LICENSE` |
+| `@radix-ui/react-use-effect-event` | `0.0.5` | `MIT` | 1 | 872 | `frontend/node_modules/@radix-ui/react-use-effect-event/LICENSE` |
+| `@radix-ui/react-use-layout-effect` | `1.1.4` | `MIT` | 1 | 116 | `frontend/node_modules/@radix-ui/react-use-layout-effect/LICENSE` |
+| `@tanstack/query-core` | `5.102.2` | `MIT` | 16 | 53578 | `frontend/node_modules/@tanstack/query-core/LICENSE` |
+| `@tanstack/react-query` | `5.102.2` | `MIT` | 2 | 1410 | `frontend/node_modules/@tanstack/react-query/LICENSE` |
+| `aria-hidden` | `1.2.6` | `MIT` | 1 | 5359 | `frontend/node_modules/aria-hidden/LICENSE` |
+| `clsx` | `2.1.1` | `MIT` | 1 | 362 | `frontend/node_modules/clsx/license` |
+| `get-nonce` | `1.0.1` | `MIT` | 1 | 145 | `frontend/node_modules/get-nonce/LICENSE` |
+| `lucide-react` | `1.34.0` | `ISC` | 26 | 12059 | `frontend/node_modules/lucide-react/LICENSE` |
+| `react` | `19.2.8` | `MIT` | 10 | 20312 | `frontend/node_modules/react/LICENSE` |
+| `react-dom` | `19.2.8` | `MIT` | 10 | 561323 | `frontend/node_modules/react-dom/LICENSE` |
+| `react-remove-scroll` | `2.7.2` | `MIT` | 7 | 15115 | `frontend/node_modules/react-remove-scroll/LICENSE` |
+| `react-remove-scroll-bar` | `2.3.8` | `MIT` | 3 | 4479 | `frontend/node_modules/react-remove-scroll-bar/package.json` (`license` field; no standalone license/notice file shipped) |
+| `react-router` | `7.18.2` | `MIT` | 1 | 83508 | `frontend/node_modules/react-router/LICENSE.md` |
+| `react-style-singleton` | `2.2.3` | `MIT` | 3 | 2335 | `frontend/node_modules/react-style-singleton/LICENSE` |
+| `scheduler` | `0.27.0` | `MIT` | 4 | 11420 | `frontend/node_modules/scheduler/LICENSE` |
+| `tailwind-merge` | `3.6.0` | `MIT` | 1 | 102185 | `frontend/node_modules/tailwind-merge/LICENSE.md` |
+| `tslib` | `2.8.1` | `0BSD` | 1 | 2189 | `frontend/node_modules/tslib/CopyrightNotice.txt`, `frontend/node_modules/tslib/LICENSE.txt` |
+| `use-callback-ref` | `1.3.3` | `MIT` | 3 | 3384 | `frontend/node_modules/use-callback-ref/LICENSE` |
+| `use-sidecar` | `1.1.3` | `MIT` | 2 | 2904 | `frontend/node_modules/use-sidecar/LICENSE` |
+
+The rendered-module counts and byte totals are build evidence, not a claim that every file in any package is distributed.
+
+## License and notice material
+
+The following text is copied from the installed package files named in the table. Identical texts are included once and apply to every package named in each heading. `react-remove-scroll-bar@2.3.8` declares MIT in its installed `package.json` but ships no standalone license/notice file in the installed package; that metadata limitation is recorded explicitly rather than guessed around.
+
+### License text for `@radix-ui/primitive` (LICENSE), `@radix-ui/react-compose-refs` (LICENSE), `@radix-ui/react-context` (LICENSE), `@radix-ui/react-dialog` (LICENSE), `@radix-ui/react-dismissable-layer` (LICENSE), `@radix-ui/react-focus-guards` (LICENSE), `@radix-ui/react-focus-scope` (LICENSE), `@radix-ui/react-id` (LICENSE), `@radix-ui/react-portal` (LICENSE), `@radix-ui/react-presence` (LICENSE), `@radix-ui/react-primitive` (LICENSE), `@radix-ui/react-slot` (LICENSE), `@radix-ui/react-use-callback-ref` (LICENSE), `@radix-ui/react-use-controllable-state` (LICENSE), `@radix-ui/react-use-effect-event` (LICENSE), `@radix-ui/react-use-layout-effect` (LICENSE)
+
+MIT License
+
+Copyright (c) 2022 WorkOS
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+### License text for `@tanstack/query-core` (LICENSE), `@tanstack/react-query` (LICENSE)
+
+MIT License
+
+Copyright (c) 2021-present Tanner Linsley
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+### License text for `aria-hidden` (LICENSE), `react-remove-scroll` (LICENSE), `react-style-singleton` (LICENSE), `use-callback-ref` (LICENSE), `use-sidecar` (LICENSE)
+
+MIT License
+
+Copyright (c) 2017 Anton Korzunov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+### License text for `clsx` (license)
+
+MIT License
+
+Copyright (c) Luke Edwards <luke.edwards05@gmail.com> (lukeed.com)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+### License text for `get-nonce` (LICENSE)
+
+MIT License
+
+Copyright (c) 2020 Anton Korzunov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+### License text for `lucide-react` (LICENSE)
+
+ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+---
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+### License text for `react` (LICENSE), `react-dom` (LICENSE), `scheduler` (LICENSE)
+
+MIT License
+
+Copyright (c) Meta Platforms, Inc. and affiliates.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+### License text for `react-router` (LICENSE.md)
+
+MIT License
+
+Copyright (c) React Training LLC 2015-2019
+Copyright (c) Remix Software Inc. 2020-2021
+Copyright (c) Shopify Inc. 2022-2023
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+### License text for `tailwind-merge` (LICENSE.md)
+
+MIT License
+
+Copyright (c) 2021 Dany Castillo
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+### License text for `tslib` (CopyrightNotice.txt)
+
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+### License text for `tslib` (LICENSE.txt)
+
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
