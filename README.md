@@ -26,7 +26,7 @@ El piloto es anónimo y funciona por sesión: puedes importar una URL pública o
 
 1. **Prepara el lote.** Agrega textos o importa URLs de noticias públicas.
 2. **Revisa la vista previa.** Confirma o edita el título, el contenido y la fuente antes de agregar cada ítem.
-3. **Analiza.** La aplicación envía el lote al backend privado de scoring y muestra un orden relativo para revisión humana.
+3. **Analiza.** La aplicación envía el lote al servicio privado de priorización y muestra un orden relativo para revisión humana.
 4. **Verifica por tu cuenta.** Contrasta las fuentes originales y aplica tu propio proceso editorial.
 
 ## Capturas del flujo
@@ -49,7 +49,7 @@ Fuentes usadas en la captura: [Yandel Sinfónico, Maroon 5 y Myke Towers se toma
 ## Tecnología
 
 - **Frontend:** React + Vite, desplegado en Cloudflare Workers.
-- **Scoring:** FastAPI + Python en un servicio privado de Render.
+- **Priorización:** FastAPI + Python en un servicio privado de Render.
 - **Pipeline:** TF-IDF + FEDA + XGBoost.
 
 La arquitectura completa está en [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). El límite de publicación de modelos y datos está en [docs/PUBLICATION_POLICY.md](docs/PUBLICATION_POLICY.md) y [docs/PHASE_3_ASSET_GATE.md](docs/PHASE_3_ASSET_GATE.md).
@@ -68,12 +68,12 @@ Para proponer cambios o reportar mejoras, use las [issues del proyecto](https://
 
 ## Estado del piloto y limitaciones
 
-Este es un piloto público **best effort**. La disponibilidad puede variar y no se promete un SLA. La salida sirve para ordenar el trabajo de revisión, no para establecer la verdad de una afirmación ni para tomar decisiones sobre personas. El repositorio mantiene fuera del lanzamiento público el modelo privado, sus artefactos y los datos de entrenamiento.
+Este es un piloto público sin garantía de disponibilidad ni SLA. La salida sirve para ordenar el trabajo de revisión, no para establecer la verdad de una afirmación ni para tomar decisiones sobre personas. El repositorio mantiene fuera del lanzamiento público el modelo privado, sus artefactos y los datos de entrenamiento.
 
 ## Licencia y contacto
 
 El código se publica bajo [MIT](LICENSE). Para reportar una vulnerabilidad, consulte [SECURITY.md](SECURITY.md).
 
-Samir Caizapasto — Project owner and full-stack developer of Ecuador Prioritizer.
+Samir Caizapasto — Propietario del proyecto y desarrollador full-stack de Ecuador Prioritizer.
 
 [GitHub del proyecto](https://github.com/Sam-24-dev/ecuador-prioritizer)
