@@ -86,8 +86,29 @@ Para proponer cambios o reportar mejoras, use las [issues del proyecto](https://
 
 Este es un piloto público sin garantía de disponibilidad ni SLA. La salida sirve para ordenar el trabajo de revisión, no para establecer la verdad de una afirmación ni para tomar decisiones sobre personas. El repositorio mantiene fuera del lanzamiento público el modelo privado, sus artefactos y los datos de entrenamiento.
 
-## Licencia y contacto
+## Licencia
 
 El código se publica bajo [MIT](LICENSE). Para reportar una vulnerabilidad, consulte [SECURITY.md](SECURITY.md).
 
-Samir Caizapasto — Propietario del proyecto y desarrollador full-stack de Ecuador Prioritizer.
+---
+
+<div align="center">
+
+### Autor
+
+**Samir Caizapasto**<br />
+*Desarrollador full-stack y propietario de Ecuador Prioritizer*
+
+<a href="https://www.linkedin.com/in/samir-caizapasto/">
+  <img src="https://img.shields.io/badge/LinkedIn-Conectar-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="Perfil de Samir Caizapasto en LinkedIn" />
+</a>
+<a href="mailto:samir.leonardo.caizapasto04@gmail.com">
+  <img src="https://img.shields.io/badge/Correo-Escribirme-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Enviar un correo a Samir Caizapasto" />
+</a>
+
+<br />
+<br />
+
+Si Ecuador Prioritizer te resulta útil para organizar la revisión de noticias, considera darle una estrella al repositorio.
+
+</div>
