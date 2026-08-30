@@ -2,6 +2,10 @@
 
 Ecuador Prioritizer ayuda a equipos de verificación a **ordenar noticias y afirmaciones para revisión humana**. Entrega señales preliminares de priorización; no reemplaza la verificación profesional.
 
+> Priorización preliminar para orientar la revisión humana de noticias y afirmaciones.
+
+**Tecnologías del piloto:** <kbd>React</kbd> <kbd>Vite</kbd> <kbd>TypeScript</kbd> <kbd>FastAPI</kbd> <kbd>Python</kbd> <kbd>XGBoost</kbd> <kbd>Cloudflare Workers</kbd> <kbd>Render</kbd>
+
 ## Demo en vivo
 
 Prueba la aplicación en [ecuador-prioritizer.scaizapa.workers.dev](https://ecuador-prioritizer.scaizapa.workers.dev/).
@@ -75,5 +79,3 @@ Este es un piloto público sin garantía de disponibilidad ni SLA. La salida sir
 El código se publica bajo [MIT](LICENSE). Para reportar una vulnerabilidad, consulte [SECURITY.md](SECURITY.md).
 
 Samir Caizapasto — Propietario del proyecto y desarrollador full-stack de Ecuador Prioritizer.
-
-[GitHub del proyecto](https://github.com/Sam-24-dev/ecuador-prioritizer)
