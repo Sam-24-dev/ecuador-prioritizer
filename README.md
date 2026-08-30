@@ -1,55 +1,79 @@
 # Ecuador Prioritizer
 
-A public, anonymous tool that helps Ecuadorian fact-checkers **prioritize** incoming news and claims for human review. It ranks signals; people decide what to investigate and what to publish. It does not verify facts or issue definitive verdicts.
+Ecuador Prioritizer ayuda a equipos de verificación a **ordenar noticias y afirmaciones para revisión humana**. Entrega señales preliminares de priorización; no reemplaza la verificación profesional.
 
-## Live demo
+## Demo en vivo
 
-Try the deployed frontend at [ecuador-prioritizer.scaizapa.workers.dev](https://ecuador-prioritizer.scaizapa.workers.dev/).
+Prueba la aplicación en [ecuador-prioritizer.scaizapa.workers.dev](https://ecuador-prioritizer.scaizapa.workers.dev/).
 
-The frontend is hosted on Cloudflare Workers. Its FastAPI backend runs as a private Render service for this application; it is not a public third-party API endpoint or supported integration.
+El piloto es anónimo y funciona por sesión: podés importar una URL pública o cargar hasta 10 textos, revisar la vista previa y analizar el lote. Cada ítem admite hasta 2.000 caracteres.
 
-## Status
+## Qué hace y qué no hace
 
-**Phases 0-1 passed; Phase 2 is materialized and locally verified.** The owner-authorized private model bundle may serve public pilot inference through the private Render backend. The bundle, model artifacts, and scraped Ecuador dataset remain private and are not published. This is a best-effort pilot for prioritizing items for human review: it does not fact-check, make decisions about people, or promise an SLA. Publication of any private artifact remains a separate release decision.
+**Hace**
 
-## Scope at a glance
+- Ordena un lote para sugerir qué revisar primero.
+- Permite importar una URL, editar la vista previa y conservar los resultados durante la sesión.
+- Muestra el origen de cada ítem y permite exportar el lote de resultados en CSV.
 
-- Public, stateless, session-only prioritization interface.
-- React/Vite frontend; FastAPI/Python scoring API.
-- TF-IDF + FEDA + XGBoost model pipeline.
-- **Límite de alcance del modelo:** cada ítem admite hasta **2.000 caracteres**. En una evaluación offline controlada, usando el pipeline oficial fijo (XGBoost/TF-IDF/FEDA) sobre el holdout congelado de 870 ítems, 2.000 caracteres rindieron mejor que 5.000 y 10.000: macro-F1/accuracy de **0,9428/0,9586**, frente a **0,9313/0,9517** y **0,9296/0,9506**, respectivamente. Este es un límite de producto/modelo, no una garantía de verificación factual.
-- No accounts, editorial workflow, cases, comments, database, or definitive verdicts.
-- Public release includes approved code and documentation; the private bundle, model artifacts, and scraped data are excluded.
+**No hace**
 
-## Current deployment boundary
+- No verifica hechos ni emite veredictos de verdad o falsedad.
+- No decide sobre personas, no sustituye el criterio editorial y no ofrece un SLA.
+- No ofrece cuentas, historial persistente, colas, expedientes ni una API pública.
 
-```text
-Public frontend: Cloudflare Workers
-Application backend: private Render FastAPI service
+## Cómo funciona
+
+1. **Prepará el lote.** Agregá textos o importá URLs de noticias públicas.
+2. **Revisá la vista previa.** Confirmá o editá el título, el contenido y la fuente antes de agregar cada ítem.
+3. **Analizá.** La aplicación envía el lote al backend privado de scoring y muestra un orden relativo para revisión humana.
+4. **Verificá por tu cuenta.** Contrastá las fuentes originales y aplicá tu propio proceso editorial.
+
+## Capturas del flujo
+
+Las capturas se tomaron del Worker canónico en escritorio (1440 × 900), con dos URLs públicas de **El Universo** publicadas el 30 de agosto de 2026. El contenido fue reducido a frases breves para no redistribuir el cuerpo de los artículos.
+
+![Vista previa de una noticia importada desde una URL pública; la fecha, el dominio y el contenido breve quedan listos para revisión humana, no para un veredicto.](docs/images/readme/url-import-review.png)
+
+![Resultados priorizados de dos noticias; los puntajes son señales preliminares para revisión humana y no veredictos.](docs/images/readme/prioritized-results.png)
+
+Fuentes usadas en la captura: [Yandel Sinfónico, Maroon 5 y Myke Towers se toman FTC live al Parque](https://www.eluniverso.com/entretenimiento/musica/yandel-sinfonico-maroon-5-y-myke-towers-se-toman-ftc-live-al-parque-nota/) y [Ecuador declara alerta roja en todo el país por el fenómeno del Niño](https://www.eluniverso.com/noticias/ecuador/ecuador-declara-alerta-roja-por-el-nino-que-implica-nota/). La aplicación mostró `2026-08-30` como fecha publicada para ambas vistas previas; se usaron únicamente el título, la URL, el dominio y texto breve editado.
+
+## Privacidad y límite del modelo
+
+- El piloto no requiere cuenta y está diseñado para uso anónimo y por sesión.
+- No envíes información personal, credenciales, material protegido ni contenido sensible.
+- El bundle privado del modelo está autorizado para la inferencia del piloto, pero el bundle, los artefactos y el dataset ecuatoriano obtenido por scraping no se publican.
+- Las señales dependen del texto y de los datos disponibles; siempre requieren revisión humana.
+
+## Tecnología
+
+- **Frontend:** React + Vite, desplegado en Cloudflare Workers.
+- **Scoring:** FastAPI + Python en un servicio privado de Render.
+- **Pipeline:** TF-IDF + FEDA + XGBoost.
+
+La arquitectura completa está en [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). El límite de publicación de modelos y datos está en [docs/PUBLICATION_POLICY.md](docs/PUBLICATION_POLICY.md) y [docs/PHASE_3_ASSET_GATE.md](docs/PHASE_3_ASSET_GATE.md).
+
+## Desarrollo local
+
+```bash
+cd frontend
+npm ci
+npm run build
+npm run lint
+npm run typecheck
 ```
 
-See [Architecture](docs/ARCHITECTURE.md) for product boundaries. This README records the current public runtime; it is not a claim of production readiness or a public API commitment.
+Para proponer cambios o reportar mejoras, use las [issues del proyecto](https://github.com/Sam-24-dev/ecuador-prioritizer/issues). Para operar o verificar el despliegue actual, consulte el [runbook de operaciones](docs/OPERATIONS_RUNBOOK.md). Los avisos de licencias del bundle p?blico est?n en [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).
 
-## Navigation
+## Estado del piloto y limitaciones
 
-- [Phase 0 source evidence](docs/PHASE_0_SOURCE_EVIDENCE.md)
-- [Phase 1 source allowlist](docs/PHASE_1_ALLOWLIST.md)
-- [Phase 3 public asset gate](docs/PHASE_3_ASSET_GATE.md)
-- [Source allowlist manifest](manifests/source-allowlist.json)
-- [Product scope](docs/PRODUCT_SCOPE.md)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Migration plan](docs/MIGRATION_PLAN.md)
-- [Publication policy](docs/PUBLICATION_POLICY.md)
-- [Free deployment](docs/FREE_DEPLOYMENT.md)
-- [Decision log](docs/DECISION_LOG.md)
-- [P7E operations runbook](docs/OPERATIONS_RUNBOOK.md)
+Este es un piloto público **best effort**. La disponibilidad puede variar y no se promete un SLA. La salida sirve para ordenar el trabajo de revisión, no para establecer la verdad de una afirmación ni para tomar decisiones sobre personas. El repositorio mantiene fuera del lanzamiento público el modelo privado, sus artefactos y los datos de entrenamiento.
 
-## Materialization and later gates
+## Licencia y contacto
 
-1. Use the approved immutable source set documented in [Phase 0 evidence](docs/PHASE_0_SOURCE_EVIDENCE.md).
-2. Validate the approved [Phase 1 allowlist](docs/PHASE_1_ALLOWLIST.md) with `./tools/validate_source_allowlist.ps1`.
-3. Phase 2 materialization used only approved entries from their assigned source SHAs.
-4. The public artifact release gate remains separate from the current pilot: private assets stay outside the public repository even while the owner-authorized bundle serves pilot inference.
-5. Run proportional release checks before future changes; the current deployment boundary is documented above and does not imply production readiness.
+El código se publica bajo [MIT](LICENSE). Para reportar una vulnerabilidad, seguí [SECURITY.md](SECURITY.md).
 
-The migration process is defined in [Migration plan](docs/MIGRATION_PLAN.md); source history and the current worktree are not canonical inputs.
+Samir Caizapasto — Project owner and full-stack developer of Ecuador Prioritizer.
+
+[GitHub del proyecto](https://github.com/Sam-24-dev/ecuador-prioritizer)
