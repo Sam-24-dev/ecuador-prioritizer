@@ -48,6 +48,8 @@ jobs:
         run: npm run check:support-reference-id
       - name: Check security headers
         run: npm run check:security-headers
+      - name: Check HTTPS redirect
+        run: npm run check:https-redirect
       - name: Check SEO crawl files
         run: npm run check:seo-crawl-files
       - name: Check favicon
