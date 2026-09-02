@@ -4,8 +4,7 @@
 
 Ecuador Prioritizer helps fact-checkers notice which public news items or claims may deserve attention first. It provides ranked signals, not editorial decisions.
 
-The current release is a best-effort public pilot. It supports human review; it
-does not fact-check, decide about people, or promise an SLA.
+The current release identity is **Public Pilot v1.0**. It is a best-effort public pilot that supports human review; it does not fact-check, decide about people, or promise an SLA.
 
 ## Users and jobs-to-be-done
 
@@ -17,11 +16,11 @@ does not fact-check, decide about people, or promise an SLA.
 
 ## Capabilities
 
-- Accept an item or batch through the public interface/API contract to be defined during implementation.
+- Accept a public URL or a batch of up to 10 text items through the public web interface; the owner-managed service is not a supported third-party API.
 - Produce a prioritized score and concise, non-definitive explanation of input signals.
 - Keep use anonymous and session-only by default.
-- Export results locally when the future UI supports it.
-- Publish reproducible documentation, releases, and model/data provenance.
+- Export current-session results locally as CSV.
+- Publish documentation that states the pilot scope, limitations, and model/data provenance boundaries.
 
 ## Explicit non-goals
 
@@ -31,14 +30,14 @@ does not fact-check, decide about people, or promise an SLA.
 - Persistent user data, database-backed history, queues, or Kubernetes.
 - A promise to replace professional verification judgment.
 
-## Success metrics
+## Post-pilot success measures
 
-Metrics must be defined and measured only after the public implementation exists:
+The current pilot does not claim measured product outcomes. If it is evaluated after pilot use, measure:
 
 - Human evaluators can complete a batch triage faster than their documented baseline.
 - Evaluators judge high-ranked items useful often enough to continue using the tool.
-- Public releases can be reproduced from documented inputs and checks.
-- Adoption is evidenced by documentation use, a runnable demo, API use where offered, releases, and community feedback—not by a vague claim of being well known.
+- Any future public release can be reproduced from documented inputs and checks.
+- Adoption is evidenced by documentation use, a runnable demo, and community feedback—not by a vague claim of being well known.
 
 ## Ethical limits
 

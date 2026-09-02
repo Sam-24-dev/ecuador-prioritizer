@@ -7,7 +7,7 @@
 | D-003 | React/Vite + FastAPI/Python | Matches the confirmed implementation direction. | Revisit only with evidence that the stack blocks the product. |
 | D-004 | TF-IDF + FEDA + XGBoost | Keeps the confirmed model pipeline and supports reproducible scoring. | Re-evaluate with documented model evidence, not novelty. |
 | D-005 | Stateless/session-only; no database by default | Minimizes privacy and operations without a persistence requirement. | Add storage only after a documented user need and privacy review. |
-| D-006 | Cloudflare Pages + OCI Always Free was an earlier historical design, superseded by the current Cloudflare Workers frontend + private Render backend | The current deployment boundary is documented in [Architecture](ARCHITECTURE.md), which is the source of truth. | Revisit only with a documented provider change and updated architecture evidence. |
+| D-006 | Cloudflare Pages + OCI Always Free was an earlier historical design, superseded by the current Cloudflare Workers frontend + owner-managed Render service | The current deployment boundary is documented in [Architecture](ARCHITECTURE.md), which is the source of truth. | Revisit only with a documented provider change and updated architecture evidence. |
 | D-007 | Worker is optional and narrow | A gateway/rate limit may help, but is not core product logic. | Add after measured abuse or boundary need. |
 | D-008 | Public artifacts require provenance and verified MIT licensing | Public reproducibility must not redistribute private or unlicensed material. | Revisit each artifact at release time. |
 | D-009 | Scraped Ecuador data remains private | Avoids publishing raw scraped content or embedding it in Git history. | Share only aggregate, rights-cleared documentation. |

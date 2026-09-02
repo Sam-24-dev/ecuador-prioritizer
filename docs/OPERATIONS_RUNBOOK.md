@@ -9,7 +9,7 @@ This runbook covers the existing public edge and API only. It is an operational 
 | Public Worker | `ecuador-prioritizer` — <https://ecuador-prioritizer.scaizapa.workers.dev> | Cloudflare deployment/version evidence from the P7D release |
 | Public source merge | `f96e6db31e1437c9884846f232cdd6521657eb97` | GitHub merge commit for the P7D frontend support-reference slice |
 | Worker version | `6739513b-58ad-481d-8059-d562b64c3043` | Wrangler deployment record; verify again before an incident action |
-| Render API | <https://ecuador-prioritizer-api.onrender.com> | Existing private runtime service; do not infer configuration from this public repository |
+| Render API | <https://ecuador-prioritizer-api.onrender.com> | Owner-managed service publicly reachable by the application; not a supported third-party API. Do not infer configuration from this public repository. |
 | Render health check | `/api/v1/health` | Render service setting recorded during P7B |
 | Render deploy | `dep-da7pdjugekts738nkef0` | Successful P7B deploy; runtime commit `13c5c53` in the private runtime repository |
 

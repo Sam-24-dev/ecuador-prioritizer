@@ -3,7 +3,7 @@
 ## Status
 
 The owner-authorized private model bundle may serve public pilot inference through
-the private Render backend. The bundle, model artifacts, and scraped Ecuador
+the owner-managed Render service, which is publicly reachable by the application but not a supported third-party API. The bundle, model artifacts, and scraped Ecuador
 dataset remain outside this workspace and are not published. The public artifact
 release gate is closed for distribution, but it does not block the current pilot
 runtime. Any use or redistribution conditions remain tied to the original
