@@ -28,6 +28,8 @@ jobs:
           node-version: 22.18.0
       - name: Install dependencies
         run: npm ci
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
       - name: Lint
         run: npm run lint
       - name: Typecheck
@@ -46,6 +48,10 @@ jobs:
         run: npm run check:client-timeout
       - name: Check support reference ID
         run: npm run check:support-reference-id
+      - name: Check URL extraction errors
+        run: npm run check:url-extraction-errors
+      - name: Check E2E
+        run: npm run check:e2e
       - name: Check security headers
         run: npm run check:security-headers
       - name: Check HTTPS redirect

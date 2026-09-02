@@ -1,4 +1,4 @@
-# Ecuador Prioritizer - Public Pilot v1.0
+# Ecuador Prioritizer
 
 <div align="center">
 
@@ -15,6 +15,12 @@
 ![License](https://img.shields.io/badge/Code-MIT-green?style=for-the-badge)
 
 </div>
+
+**Product:** Ecuador Prioritizer prioritizes public news items and claims for human review.
+
+**Release target:** software version **v1.0.0**; this repository is preparing that target, not declaring a stable release.
+
+**Operational status:** public pilot, best effort, no SLA, human-in-the-loop.
 
 Ecuador Prioritizer ayuda a equipos de verificación a **ordenar noticias y afirmaciones para revisión humana**. Entrega señales preliminares de priorización; no reemplaza la verificación profesional.
 
@@ -68,7 +74,7 @@ Fuentes usadas en la captura: [Yandel Sinfónico, Maroon 5 y Myke Towers se toma
 - **Priorización:** FastAPI + Python en un servicio de Render administrado por el propietario; es accesible desde la aplicación pública, pero no es una API pública ni una integración para terceros.
 - **Pipeline:** TF-IDF + FEDA + XGBoost.
 
-La arquitectura completa está en [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). El límite de publicación de modelos y datos está en [docs/PUBLICATION_POLICY.md](docs/PUBLICATION_POLICY.md) y [docs/PHASE_3_ASSET_GATE.md](docs/PHASE_3_ASSET_GATE.md).
+La arquitectura completa está en [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). El límite de publicación de modelos y datos está en [docs/PUBLICATION_POLICY.md](docs/PUBLICATION_POLICY.md) y [docs/PHASE_3_ASSET_GATE.md](docs/PHASE_3_ASSET_GATE.md). La descripción pública del modelo está en [docs/MODEL_CARD.md](docs/MODEL_CARD.md).
 
 ## Desarrollo local
 
@@ -79,6 +85,15 @@ npm run build
 npm run lint
 npm run typecheck
 ```
+
+### Pruebas públicas del backend
+
+```bash
+cd backend
+python -m pytest -m "not ml_integration"
+```
+
+Esta es la suite pública de contrato del backend; usa el código y los fixtures públicos y no requiere el bundle privado. La inferencia ML en vivo no se puede reproducir desde este repositorio porque el bundle y los datos de entrenamiento permanecen privados.
 
 Para proponer cambios o reportar mejoras, use las [issues del proyecto](https://github.com/Sam-24-dev/ecuador-prioritizer/issues). Para operar o verificar el despliegue actual, consulte el [runbook de operaciones](docs/OPERATIONS_RUNBOOK.md). Los avisos de licencias del bundle público están en [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES).
 
