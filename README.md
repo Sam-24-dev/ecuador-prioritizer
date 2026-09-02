@@ -18,7 +18,7 @@
 
 **Product:** Ecuador Prioritizer prioritizes public news items and claims for human review.
 
-**Release target:** software version **v1.0.0**; this repository is preparing that target, not declaring a stable release.
+**Release baseline:** software version **v1.0.0** is the stable software baseline for this repository.
 
 **Operational status:** public pilot, best effort, no SLA, human-in-the-loop.
 
