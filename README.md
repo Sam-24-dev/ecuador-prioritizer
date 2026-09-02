@@ -1,4 +1,4 @@
-# Ecuador Prioritizer
+# Ecuador Prioritizer - Public Pilot v1.0
 
 <div align="center">
 
@@ -42,7 +42,7 @@ El piloto es anónimo y funciona por sesión: puedes importar una URL pública o
 
 1. **Prepara el lote.** Agrega textos o importa URLs de noticias públicas.
 2. **Revisa la vista previa.** Confirma o edita el título, el contenido y la fuente antes de agregar cada ítem.
-3. **Analiza.** La aplicación envía el lote al servicio privado de priorización y muestra un orden relativo para revisión humana.
+3. **Analiza.** La aplicación envía el lote al servicio de priorización administrado por el propietario en Render; es accesible desde la aplicación pública, pero no se ofrece como API pública ni para integraciones de terceros.
 4. **Verifica por tu cuenta.** Contrasta las fuentes originales y aplica tu propio proceso editorial.
 
 ## Capturas del flujo
@@ -65,7 +65,7 @@ Fuentes usadas en la captura: [Yandel Sinfónico, Maroon 5 y Myke Towers se toma
 ## Tecnología
 
 - **Frontend:** React + Vite, desplegado en Cloudflare Workers.
-- **Priorización:** FastAPI + Python en un servicio privado de Render.
+- **Priorización:** FastAPI + Python en un servicio de Render administrado por el propietario; es accesible desde la aplicación pública, pero no es una API pública ni una integración para terceros.
 - **Pipeline:** TF-IDF + FEDA + XGBoost.
 
 La arquitectura completa está en [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). El límite de publicación de modelos y datos está en [docs/PUBLICATION_POLICY.md](docs/PUBLICATION_POLICY.md) y [docs/PHASE_3_ASSET_GATE.md](docs/PHASE_3_ASSET_GATE.md).

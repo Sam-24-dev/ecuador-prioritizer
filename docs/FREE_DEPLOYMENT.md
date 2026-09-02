@@ -2,7 +2,7 @@
 
 ## Current boundary
 
-The confirmed public frontend is the Cloudflare Worker at <https://ecuador-prioritizer.scaizapa.workers.dev/>. The FastAPI backend is a private Render service for this application. This page records the boundary and planning guardrails; it does not claim the current provider plan, active version, deploy source, quota usage, alert settings, or production readiness.
+The confirmed public frontend is the Cloudflare Worker at <https://ecuador-prioritizer.scaizapa.workers.dev/>. The FastAPI backend is an owner-managed Render service publicly reachable by this application; it is not a supported public API or third-party integration. This page records the boundary and planning guardrails; it does not claim the current provider plan, active version, deploy source, quota usage, alert settings, or production readiness.
 
 For current operational procedures and evidence limits, use the [Operations runbook](OPERATIONS_RUNBOOK.md).
 
@@ -21,7 +21,7 @@ The original low-cost deployment plan considered the following arrangement:
 | Historical option | Historical role | Current status |
 |---|---|---|
 | Cloudflare Pages | Static frontend hosting | Superseded by the current Cloudflare Worker frontend |
-| OCI Always Free compute | FastAPI/scoring API hosting | Superseded by the current private Render backend |
+| OCI Always Free compute | FastAPI/scoring API hosting | Superseded by the current owner-managed Render service |
 | Cloudflare Worker gateway | Optional gateway or rate-limit layer | The current Worker is the public frontend; do not infer a separate gateway deployment from this page |
 | Local/private backup | Recovery for configuration and approved release evidence | Still a general safety practice; keep private material private |
 
